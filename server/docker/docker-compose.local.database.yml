@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  database:
+    build:
+      context: ../database
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - ../database/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGPASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TZ=${TZ}
+      - PORT=${PORT}

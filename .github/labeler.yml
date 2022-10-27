@@ -2,9 +2,15 @@ ci:
   - '.github/*.yml'
   - '.github/workflows/**/*'
 
-docs:
-  - '**/*.md'
+document:
+  - 'doc/*'
 
 server:
   - 'server/*'
 
+infra:
+  - 'server/docker/*'
+  - 'server/database/*'
+
+client:
+  - 'client/*'

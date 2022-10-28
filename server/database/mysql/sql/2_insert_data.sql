@@ -1,5 +1,4 @@
-INSERT INTO tasks (`name`, `status`) VALUES ("task1", "todo");
-INSERT INTO tasks (`name`, `status`) VALUES ("task2", "todo");
-INSERT INTO tasks (`name`, `status`) VALUES ("task3", "doing");
-INSERT INTO tasks (`name`, `status`) VALUES ("task4", "doing");
-INSERT INTO tasks (`name`, `status`) VALUES ("task5", "done");
+INSERT INTO communities (`name`, `img_url`, `content`) VALUES ("c1", "https://hoge.png", "hello!");
+INSERT INTO communities (`name`, `img_url`, `content`) VALUES ("c2", "https://hoge.png", "hello!");
+INSERT INTO communities (`name`, `img_url`, `content`) VALUES ("c3", "https://hoge.png", "hello!");
+

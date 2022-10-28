@@ -24,7 +24,7 @@ func main() {
 	r := router.NewRouter()
 
 	r.Health()
-	// r.NewTaskRouter(conn)
+	r.InitCommunityRouter(conn)
 
 	// Routerの起動
 	r.Serve()

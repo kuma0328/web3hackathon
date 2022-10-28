@@ -5,7 +5,8 @@ type Recipe struct {
 	Id        int
 	Name      string
 	ImgUrl    string
-	Community Community
+	RecipeSteps RecipeSteps
+	Spices Spices
 }
 
 // RecipeStepはレシピの手順に関する構造体です
@@ -13,12 +14,14 @@ type RecipeStep struct {
 	Id      int
 	Number  int
 	Content string
-	Recipe  Recipe
 }
 
-// Spicesはレシピにのっている調味料に関する構造体です
-type Spices struct {
+type RecipeSteps []RecipeStep
+
+// Spiceはレシピにのっている調味料に関する構造体です
+type Spice struct {
 	Id     int
 	Name   string
-	Recipe Recipe
 }
+
+type Spices []Spice

@@ -7,5 +7,4 @@ type Post struct {
 	ImgUrl    string
 	Like      int
 	User      User
-	Community Community
 }

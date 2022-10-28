@@ -5,5 +5,9 @@ type Community struct {
 	Id     int
 	Name   string
 	ImgUrl string
-	User   User
+	Content string
+	Recipe Recipe
+	Users   Users
 }
+
+type Communities []Community

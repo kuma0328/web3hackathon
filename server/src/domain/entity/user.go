@@ -6,4 +6,7 @@ type User struct {
 	Name     string
 	Mail     string
 	Password string
+	Communities Communities
 }
+
+type Users []User

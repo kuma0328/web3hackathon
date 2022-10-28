@@ -14,7 +14,10 @@ type CommunityUsecase struct {
 }
 
 type ICommunityUsecase interface {
-	GetCommunityById(id string) (*entity.Community, error)
+	GetCommunityById(id int) (*entity.Community, error)
+	UpdateCommunityOfId(id int, community *entity.Community)(*entity.Community,error)
+	DeleteCommunityOfId(id int)error
+	CreateNewCommunity(community *entity.Community)(*entity.Community,error)
 }
 
 func NewCommunityUsecase(repo repository.ICommunityRepository) ICommunityUsecase {
@@ -23,9 +26,32 @@ func NewCommunityUsecase(repo repository.ICommunityRepository) ICommunityUsecase
 	}
 }
 
-func (uc *CommunityUsecase) GetCommunityById(id string) (*entity.Community, error) {
-	if id == "" {
-		return nil, fmt.Errorf("Usecase.GetCommunityById Error: id is empty")
+func (uc *CommunityUsecase) GetCommunityById(id int) (*entity.Community, error) {
+	if id == 0 {
+		return nil, fmt.Errorf("Usecase.GetCommunityById Error: id invalied")
 	}
 	return uc.repo.GetCommunityById(id)
 }
+
+func (uc *CommunityUsecase) UpdateCommunityOfId(id int, community *entity.Community)(*entity.Community,error){
+	if id == 0 {
+		return nil,fmt.Errorf("Usecase.UpdateCommunityOfId Error: id invalied")
+	}
+	community.Id = id
+	return uc.repo.UpdateCommunityOfId(community)
+}
+
+func (uc *CommunityUsecase) DeleteCommunityOfId(id int)error{
+	if id == 0 {
+		return fmt.Errorf("Usecase.DeleteCommunityOfId Error: id invalied")
+	}
+	return uc.repo.DeleteCommunityOfId(id)
+}
+
+func (uc *CommunityUsecase) CreateNewCommunity(community *entity.Community)(*entity.Community,error){
+	if community.Name == "" {
+		return nil,fmt.Errorf("Usecase.CreateNewCommunity Error: name is empty")
+	}
+	return uc.repo.CreateNewCommunity(community)
+}
+

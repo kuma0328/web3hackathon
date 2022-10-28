@@ -5,16 +5,15 @@ services:
     build:
       context: ../database
       dockerfile: Dockerfile
-    ports:
-      - 5432:5432
     volumes:
-      - ../database/data:/var/lib/postgresql/data
+      - ../database/data:/var/lib/mysql
+      - ../database/mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ../database/mysql/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
     environment:
-      - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_PORT=${POSTGRES_PORT}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - PGPASSWORD=${PGPASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - TZ=${TZ}
-      - PORT=${PORT}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_HOST=${DB_HOST}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}

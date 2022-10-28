@@ -1,0 +1,11 @@
+## Build
+FROM golang:1.17.0-alpine
+
+WORKDIR /go/src/github.com/kuma0328/web3hackathon
+
+COPY . .
+
+RUN go get -u github.com/cosmtrek/air
+RUN go mod download
+
+CMD ["air"]

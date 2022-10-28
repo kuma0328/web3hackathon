@@ -4,7 +4,7 @@ FROM golang:1.17-buster AS build
 WORKDIR /go/src/github.com/kuma0328/web3hackathon
 
 COPY go.mod ./
-# COPY go.sum ./
+COPY go.sum ./
 
 RUN go mod download
 

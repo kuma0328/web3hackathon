@@ -29,7 +29,7 @@ func NewUserUsecase(ur repository.IUserRepository) IUserUsecase {
 
 func (ur *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	if user.Name == "" {
-		return nil, usecase_error.IdEmptyError
+		return nil, usecase_error.NameEmptyError
 	}
 	if user.Mail == "" {
 		return nil, usecase_error.NameEmptyError
@@ -44,7 +44,7 @@ func (ur *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*enti
 
 func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	if user.Name == "" {
-		return nil, usecase_error.IdEmptyError
+		return nil, usecase_error.NameEmptyError
 	}
 	if user.Mail == "" {
 		return nil, usecase_error.NameEmptyError

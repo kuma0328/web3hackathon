@@ -1,4 +1,4 @@
-package infra_error
+package infra
 
 import "errors"
 

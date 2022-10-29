@@ -32,7 +32,7 @@ func (ur *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*enti
 		return nil, usecase_error.NameEmptyError
 	}
 	if user.Mail == "" {
-		return nil, usecase_error.NameEmptyError
+		return nil, usecase_error.MailEmptyError
 	}
 	if user.Password == "" {
 		return nil, usecase_error.PassWordEmptyError
@@ -47,7 +47,7 @@ func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*enti
 		return nil, usecase_error.NameEmptyError
 	}
 	if user.Mail == "" {
-		return nil, usecase_error.NameEmptyError
+		return nil, usecase_error.MailEmptyError
 	}
 	if user.Password == "" {
 		return nil, usecase_error.PassWordEmptyError

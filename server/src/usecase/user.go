@@ -27,6 +27,7 @@ func NewUserUsecase(ur repository.IUserRepository) IUserUsecase {
 }
 
 func (ur *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
+
 	user, err := ur.repo.CreateUser(ctx, user)
 	return user, err
 }

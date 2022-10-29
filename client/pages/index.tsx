@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import { TypoGraphy } from '../components/BaseParts/TypoGraphy';
+import { Button } from '../components/BaseParts/Button';
 
 export default function Home() {
   return (
@@ -9,8 +11,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className=" bg-base-bg-color">
         <h1 className="text-center font-extralight">fooDAO</h1>
+        {/* <TypoGraphy>タイトルですよ</TypoGraphy>
+        <div className="text-center">
+          <Button>これはボタンです</Button>
+        </div> */}
       </main>
     </div>
   );

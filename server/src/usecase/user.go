@@ -5,6 +5,7 @@ import (
 
 	"github.com/kuma0328/web3hackathon/domain/entity"
 	"github.com/kuma0328/web3hackathon/domain/repository"
+	usecase_error "github.com/kuma0328/web3hackathon/error/usecase"
 )
 
 var _ IUserUsecase = &UserUsecase{}
@@ -27,11 +28,31 @@ func NewUserUsecase(ur repository.IUserRepository) IUserUsecase {
 }
 
 func (ur *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
+	if user.Name == "" {
+		return nil, usecase_error.IdEmptyError
+	}
+	if user.Mail == "" {
+		return nil, usecase_error.NameEmptyError
+	}
+	if user.Password == "" {
+		return nil, usecase_error.PassWordEmptyError
+	}
+
 	user, err := ur.repo.CreateUser(ctx, user)
 	return user, err
 }
 
 func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
+	if user.Name == "" {
+		return nil, usecase_error.IdEmptyError
+	}
+	if user.Mail == "" {
+		return nil, usecase_error.NameEmptyError
+	}
+	if user.Password == "" {
+		return nil, usecase_error.PassWordEmptyError
+	}
+
 	user, err := ur.repo.UpdateUser(ctx, user)
 	return user, err
 }

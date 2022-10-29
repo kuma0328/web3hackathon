@@ -6,7 +6,7 @@ import (
 	"github.com/kuma0328/web3hackathon/domain/entity"
 )
 
-type UserRepository interface {
+type IUserRepository interface {
 	CreateUser(context.Context, *entity.User) (*entity.User, error)
 	UpdateUser(context.Context, *entity.User) (*entity.User, error)
 	GetUser(ctx context.Context, id string) (*entity.User, error)

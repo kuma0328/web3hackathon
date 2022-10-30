@@ -6,9 +6,11 @@ import { Page } from '../../components/Wrapper/Page';
 const index = () => {
   return (
     <Page wide={false} className="p-10">
-      <TypoGraphy>所属しているコミュニティ</TypoGraphy>
+      <TypoGraphy className="my-10 text-2xl">
+        所属しているコミュニティ
+      </TypoGraphy>
       <BelongingCommunity />
-      <TypoGraphy>コミュニティ一覧</TypoGraphy>
+      <TypoGraphy className="my-10 text-2xl">コミュニティ一覧</TypoGraphy>
       <Communities />
     </Page>
   );

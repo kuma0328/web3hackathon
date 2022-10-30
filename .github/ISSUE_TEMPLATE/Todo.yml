@@ -3,6 +3,9 @@ description: 新規タスク用issueを作成する
 title: '[task]: '
 labels: []
 body:
+  - type: markdown
+    attributes:
+      value: 'new task'
   - type: textarea
     id: purpose
     attributes:

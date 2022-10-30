@@ -1,6 +1,8 @@
 import { Button } from '../BaseParts/Button';
 import { Input } from '../BaseParts/Input';
+import { TypoGraphy } from '../BaseParts/TypoGraphy';
 type TProps = {
+  title?: string;
   mail: string;
   password: string;
   name?: string;
@@ -12,6 +14,7 @@ type TProps = {
   onSubmit: () => void;
 };
 export const Form = ({
+  title,
   mail,
   password,
   passwordConfirmation,
@@ -23,18 +26,21 @@ export const Form = ({
   onSubmit,
 }: TProps) => {
   return (
-    <div className="w-1/3">
-      <Input
-        id="name"
-        name="名前"
-        type="text"
-        value={name}
-        onChange={onChangeName}
-      />
+    <div className="m-10">
+      <TypoGraphy className="text-center text-xl">{title}</TypoGraphy>
+      {name !== undefined && (
+        <Input
+          id="name"
+          name="名前"
+          type="text"
+          value={name}
+          onChange={onChangeName}
+        />
+      )}
       <Input
         id="mail"
         name="メールアドレス"
-        type="mail"
+        type="email"
         value={mail}
         onChange={onChangeMail}
       />
@@ -45,15 +51,18 @@ export const Form = ({
         value={password}
         onChange={onChangePassword}
       />
-      <Input
-        id="password-confirmation"
-        name="パスワード確認"
-        type="password"
-        value={passwordConfirmation}
-        onChange={onChangePasswordConfirmation}
-      />
+      {passwordConfirmation !== undefined && (
+        <Input
+          id="password-confirmation"
+          name="パスワード確認"
+          type="password"
+          value={passwordConfirmation}
+          onChange={onChangePasswordConfirmation}
+        />
+      )}
+
       <div className="my-5 flex justify-center">
-        <Button onClick={onSubmit}>ユーザー登録</Button>
+        <Button onClick={onSubmit}>{title}する</Button>
       </div>
     </div>
   );

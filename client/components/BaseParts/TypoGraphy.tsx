@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
 type TProps = {
   children: ReactNode;
-  size?: string;
+  className?: string;
 };
-export const TypoGraphy = ({ size, children }: TProps) => {
-  return <div className={`${size} font-semibold text-fc`}>{children}</div>;
+export const TypoGraphy = ({ className, children }: TProps) => {
+  return (
+    <div className={`${className} my-5 font-semibold text-fc`}>{children}</div>
+  );
 };

@@ -7,7 +7,7 @@ type TProps = {
 };
 export const Input = ({ id, name, type, value, onChange }: TProps) => {
   return (
-    <div className="mx-5 grid grid-cols-1 justify-items-start py-3">
+    <div className="py-3">
       <label htmlFor={id} className="text-left">
         {name}
       </label>
@@ -17,7 +17,7 @@ export const Input = ({ id, name, type, value, onChange }: TProps) => {
         type={type}
         onChange={onChange}
         value={value}
-        className="w-full rounded-lg border-2 border-black"
+        className="w-full rounded-lg border-2 border-black p-1"
       />
     </div>
   );

@@ -4,7 +4,7 @@ import { Form } from '../../components/User/Form';
 
 export const signup = () => {
   return (
-    <Page>
+    <Page wide={true}>
       <Board className="w-full md:w-1/2">
         <Form
           title="ユーザー登録"

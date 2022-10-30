@@ -7,7 +7,7 @@ const index = () => {
   const { name } = router.query;
   return (
     <div>
-      <Page>
+      <Page wide={true}>
         <Board className="w-full md:w-1/2">
           <div className="p-5 text-center">
             <div className="m-auto my-3 h-32 w-32 rounded-full bg-orange-400"></div>

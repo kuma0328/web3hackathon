@@ -9,7 +9,7 @@ const index = () => {
       <TypoGraphy className="my-10 text-2xl">
         所属しているコミュニティ
       </TypoGraphy>
-      <BelongingCommunity />
+      <BelongingCommunity className="rounded-full" />
       <TypoGraphy className="my-10 text-2xl">コミュニティ一覧</TypoGraphy>
       <Communities />
     </Page>

@@ -6,6 +6,8 @@ assignees:
   - octocat
 body:
   - type: markdown
+    attributes:
+      value: 'bug report'
   - type: textarea
     id: what-happened
     attributes:

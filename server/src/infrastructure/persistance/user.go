@@ -76,7 +76,7 @@ func (ur *UserRepository) DeleteUser(ctx context.Context, id int) error {
 	WHERE id = :id
 	`
 
-	_, err := ur.conn.DB.NamedExec(query, map[string]interface{}{"id": id})
+	_, err := ur.conn.DB.NamedExecContext(ctx, query, map[string]interface{}{"id": id})
 	if err != nil {
 		return fmt.Errorf("CommunityRepository.DeleteCommunityOfId NamedExec Error : %w", err)
 	}

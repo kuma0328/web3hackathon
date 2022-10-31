@@ -55,7 +55,7 @@ func (ur *UserRepository) UpdateUser(ctx context.Context, user *entity.User) (*e
 	return userDtoToEntity(&dto), nil
 }
 
-func (ur *UserRepository) GetUser(ctx context.Context, id string) (*entity.User, error) {
+func (ur *UserRepository) GetUser(ctx context.Context, id int) (*entity.User, error) {
 	var dto userDto
 
 	query := `
@@ -71,7 +71,7 @@ func (ur *UserRepository) GetUser(ctx context.Context, id string) (*entity.User,
 	return userDtoToEntity(&dto), nil
 }
 
-func (ur *UserRepository) DeleteUser(ctx context.Context, id string) error {
+func (ur *UserRepository) DeleteUser(ctx context.Context, id int) error {
 	query := `
 	DELETE FROM communities
 	WHERE id = :id

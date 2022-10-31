@@ -23,8 +23,8 @@ func NewUserRepository(conn *database.Conn) repository.IUserRepository {
 
 func (ur *UserRepository) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	query := `
-	INSERT INTO users (name, mail, password)
-	VALUES (:name,:img_url,:content)
+	INSERT INTO users (name, mail)
+	VALUES (:name,:mail)
 	`
 	dto := userEntityToDto(user)
 	res, err := ur.conn.DB.NamedExecContext(ctx, query, &dto)
@@ -43,7 +43,6 @@ func (ur *UserRepository) UpdateUser(ctx context.Context, user *entity.User) (*e
 	UPDATE communities
 	SET name     = :name,
 		mail 	 = :mail,
-		passqord = :password
 	WHERE id = :id
 	`
 	dto := userEntityToDto(user)
@@ -59,7 +58,7 @@ func (ur *UserRepository) GetUser(ctx context.Context, id int) (*entity.User, er
 	var dto userDto
 
 	query := `
-	SELECT * 
+	SELECT id, name, mail  
 	FROM users
 	WHERE id = ?
 	`

@@ -39,3 +39,28 @@ func (ur *UserRepository) DeleteUser(ctx context.Context, id string) error {
 
 	return nil
 }
+
+type userDto struct {
+	Id       int    `db:"id"`
+	Name     string `db:"name"`
+	Mail     string `db:"mail"`
+	Password string `db:"password"`
+}
+
+func userDtoToEntity(dto *userDto) *entity.User {
+	return &entity.User{
+		Id:       dto.Id,
+		Name:     dto.Name,
+		Mail:     dto.Mail,
+		Password: dto.Password,
+	}
+}
+
+func userEntityToDto(u *entity.User) userDto {
+	return userDto{
+		Id:       u.Id,
+		Name:     u.Name,
+		Mail:     u.Mail,
+		Password: u.Password,
+	}
+}

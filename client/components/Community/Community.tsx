@@ -1,12 +1,12 @@
 import { Board } from '../BaseParts/Board';
-import { Button } from '../BaseParts/Button';
 import { Descriptions } from '../BaseParts/Descriptions';
 import { LinkTo } from '../BaseParts/LinkTo';
 type TProps = {
   title: string;
+  link?: string;
   description: string;
 };
-export const Community = ({ title, description }: TProps) => {
+export const Community = ({ title, link, description }: TProps) => {
   return (
     <Board>
       <div className="p-5">
@@ -17,9 +17,11 @@ export const Community = ({ title, description }: TProps) => {
             <p>{description}</p>
           </Descriptions>
         </div>
-        <LinkTo link="aaa" className="m-auto w-2/3 text-center">
-          見にいく
-        </LinkTo>
+        {link !== undefined && (
+          <LinkTo link={link} className="m-auto w-2/3 text-center">
+            見にいく
+          </LinkTo>
+        )}
       </div>
     </Board>
   );

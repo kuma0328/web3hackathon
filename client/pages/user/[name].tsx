@@ -13,7 +13,7 @@ const index = () => {
         <Board className="w-full md:w-1/2">
           <div className="p-5 text-center md:p-20">
             <div className="m-auto my-3 h-32 w-32 rounded-full bg-orange-400"></div>
-            <TypoGraphy className="text-xl">{name}</TypoGraphy>
+            <TypoGraphy className="text-2xl">{name}</TypoGraphy>
             <Descriptions>
               <p>Eth:0.99</p>
               <p className="py-1">いいね数:10</p>

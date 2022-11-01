@@ -14,7 +14,7 @@ func (r Router) InitRecipeRouter(conn *database.Conn) {
 	ucRecipe := usecase.NewRecipeUsecase(repoRecipe,repoRecipeStep,repoSpice)
 	hRecipe := handler.NewRecipeHandler(ucRecipe)
 
-	gRecipe := r.Engine.Group("/recipe")
-	gRecipe.GET("/:community_id",hRecipe.GetRecipeByCommunityId)
-
+	gRecipe := r.Engine.Group("/community/:community_id")
+	gRecipe.GET("/recipe",hRecipe.GetRecipeByCommunityId)
+	gRecipe.POST("/recipe",hRecipe.CreateNewRecipeOfCommunity)
 }

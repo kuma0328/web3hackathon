@@ -11,7 +11,6 @@ import (
 
 var _ repository.IRecipeRepository = &RecipeRepository{}
 
-// TODO なんかこの依存関係いまいちな気がする
 type RecipeRepository struct {
 	conn *database.Conn
 }
@@ -37,6 +36,29 @@ func (repo *RecipeRepository) GetRecipeByCommunityId(ctx context.Context, commun
 		return nil,fmt.Errorf("RecipeRepository.GetRecipeByCommunityId GetContext Error: %w",err)
 	}
 	return recipeDtoToEntity(&dto),nil
+}
+
+func (repo *RecipeRepository) CreateNewRecipeOfCommunity(ctx context.Context, recipe *entity.Recipe, communityId int) (*entity.Recipe,error) {
+	// TODO dtoのポインタ周り統一しないと分かりにくそう
+	dto := recipeEntityToDto(recipe)
+	dto.CommunityId = communityId
+
+	query := `
+	INSERT INTO recipes (name, img_url, community_id)
+	VALUES (:name,:img_url,:community_id)
+	`
+	res,err := repo.conn.DB.NamedExec(query,dto)
+	if err != nil{
+		return nil, fmt.Errorf("RecipeRepository.CreateNewRecipeOfCommunity NamedExec Error : %w", err)
+	}
+
+	id,err := res.LastInsertId()
+	if err != nil{
+		return nil, fmt.Errorf("RecipeRepository.CreateNewRecipeOfCommunity LastInsertId Error : %w", err)
+	}
+	dto.Id = (int)(id)
+
+	return recipeDtoToEntity(dto),nil
 }
 
 type recipeDto struct {

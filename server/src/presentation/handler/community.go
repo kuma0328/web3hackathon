@@ -21,9 +21,9 @@ func NewCommunityHandler(uc usecase.ICommunityUsecase) *CommunityHandler {
 }
 
 // GetCommunityByIdはIdを指定してcommuntyを取得するハンドラーです
-// GET /community/:id
+// GET /community/:community_id
 func (h *CommunityHandler) GetCommunityById(ctx *gin.Context) {
-	idString := ctx.Param("id")
+	idString := ctx.Param("community_id")
 	id,err := strconv.Atoi(idString)
 	if err!=nil{
 		ctx.JSON(
@@ -50,9 +50,9 @@ func (h *CommunityHandler) GetCommunityById(ctx *gin.Context) {
 }
 
 // UpdateCommunityOfIdは指定したidのcommunity情報を更新するハンドラーです
-// PUT /community/:id
+// PUT /community/:community_id
 func (h *CommunityHandler) UpdateCommunityOfId(ctx *gin.Context){
-	idString := ctx.Param("id")
+	idString := ctx.Param("community_id")
 	id,err := strconv.Atoi(idString)
 	if err!=nil{
 		ctx.JSON(
@@ -87,9 +87,9 @@ func (h *CommunityHandler) UpdateCommunityOfId(ctx *gin.Context){
 }
 
 // DeleteCommunityOfIdは指定したidのcommunityを削除するハンドラーです
-// DELETE /community/:id
+// DELETE /community/:community_id
 func (h *CommunityHandler) DeleteCommunityOfId(ctx *gin.Context){
-	idString := ctx.Param("id")
+	idString := ctx.Param("community_id")
 	id,err := strconv.Atoi(idString)
 	if err!=nil{
 		ctx.JSON(

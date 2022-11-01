@@ -19,7 +19,7 @@ func NewRecipeHandler(uc usecase.IRecipeUsecase) *RecipeHandler {
 	}
 }
 
-// GET /recipe/:community_id
+// GET community/:community_id/recipe
 func (h *RecipeHandler) GetRecipeByCommunityId(ctx *gin.Context) {
 	communityIdString := ctx.Param("community_id")
 	communityId,err:=strconv.Atoi(communityIdString)
@@ -48,9 +48,42 @@ func (h *RecipeHandler) GetRecipeByCommunityId(ctx *gin.Context) {
 	)
 }
 
+// POST community/:community_id/recipe
+func (h *RecipeHandler) CreateNewRecipeOfCommunity(ctx *gin.Context){
+	communityIdString := ctx.Param("community_id")
+	communityId,err:=strconv.Atoi(communityIdString)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error":err.Error()},
+		)
+		return
+	}
 
+	var j recipeJson
+	if err := ctx.BindJSON(&j); err !=nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error":err.Error()},
+		)
+		return
+	}
 
+	recipe,err := h.uc.CreateNewRecipeOfCommunity(ctx.Request.Context(),recipeJsonToEntity(&j),communityId)
+	if err!=nil{
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error":err.Error()},
+		)
+		return
+	}
 
+	recipeJson := recipeEntityToJson(recipe)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data":recipeJson},
+	)
+}
 
 type recipeJson struct {
 	Id          int   `json:"id"`
@@ -77,6 +110,7 @@ type spiceJson struct {
 
 type spicesJson []*spiceJson
 
+// entity to json
 func recipeEntityToJson(recipe *entity.Recipe) *recipeJson {
 	return &recipeJson{
 		Id: recipe.Id,
@@ -118,3 +152,14 @@ func spiceEntityToJson(spice *entity.Spice) *spiceJson {
 		Name: spice.Name,
 	}
 }
+
+
+// json to entity
+func recipeJsonToEntity(r *recipeJson) *entity.Recipe {
+	return &entity.Recipe{
+		Id: r.Id,
+		Name: r.Name,
+		ImgUrl: r.ImgUrl,
+	}
+}
+

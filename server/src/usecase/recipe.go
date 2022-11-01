@@ -16,6 +16,7 @@ type RecipeUsecase struct {
 
 type IRecipeUsecase interface {
 	GetRecipeByCommunityId(ctx context.Context, communityId int) (*entity.Recipe,error)
+	CreateNewRecipeOfCommunity(ctx context.Context, recipe *entity.Recipe, communityId int) (*entity.Recipe,error)
 }
 
 func NewRecipeUsecase(
@@ -56,3 +57,12 @@ func (uc *RecipeUsecase) GetRecipeByCommunityId(ctx context.Context, communityId
 	return recipe,nil
 }
 
+func (uc *RecipeUsecase) CreateNewRecipeOfCommunity(ctx context.Context, recipe *entity.Recipe, communityId int) (*entity.Recipe,error){
+	if recipe.Name == "" {
+		return nil,fmt.Errorf("Usecase.CreateNewRecipeOfCommunity Error : recipe name is empty")
+	}
+	if communityId == 0 {
+		return nil,fmt.Errorf("Usecase.CreateNewRecipeOfCommunity Error : community Id invalied")
+	}
+	return uc.repoRecipe.CreateNewRecipeOfCommunity(ctx,recipe,communityId)
+}

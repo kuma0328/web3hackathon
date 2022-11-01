@@ -18,7 +18,7 @@ type IUserUsecase interface {
 	CreateUser(context.Context, *entity.User) (*entity.User, error)
 	UpdateUser(context.Context, *entity.User) (*entity.User, error)
 	GetUserByID(ctx context.Context, id int) (*entity.User, error)
-	GetUserByMail(ctx context.Context, id int) (*entity.User, error)
+	GetUserByMail(ctx context.Context, mail string) (*entity.User, error)
 	DeleteUser(ctx context.Context, id int) error
 }
 
@@ -59,16 +59,28 @@ func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*enti
 }
 
 func (ur *UserUsecase) GetUserByID(ctx context.Context, id int) (*entity.User, error) {
+	if id == 0 {
+		return nil, usecase_error.IdEmptyError
+	}
+
 	user, err := ur.repo.GetUserByID(ctx, id)
 	return user, err
 }
 
-func (ur *UserUsecase) GetUserByMail(ctx context.Context, id int) (*entity.User, error) {
-	user, err := ur.repo.GetUserByID(ctx, id)
+func (ur *UserUsecase) GetUserByMail(ctx context.Context, mail string) (*entity.User, error) {
+	if mail == "" {
+		return nil, usecase_error.MailEmptyError
+	}
+
+	user, err := ur.repo.GetUserByMail(ctx, mail)
 	return user, err
 }
 
 func (ur *UserUsecase) DeleteUser(ctx context.Context, id int) error {
+	if id == 0 {
+		return usecase_error.IdEmptyError
+	}
+
 	err := ur.repo.DeleteUser(ctx, id)
 	return err
 }

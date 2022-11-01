@@ -70,7 +70,7 @@ func (ur *UserRepository) GetUserByID(ctx context.Context, id int) (*entity.User
 	return userDtoToEntity(&dto), nil
 }
 
-func (ur *UserRepository) GetUserByMail(ctx context.Context, id int) (*entity.User, error) {
+func (ur *UserRepository) GetUserByMail(ctx context.Context, mail string) (*entity.User, error) {
 	var dto userDto
 
 	query := `
@@ -79,7 +79,7 @@ func (ur *UserRepository) GetUserByMail(ctx context.Context, id int) (*entity.Us
 	WHERE mail = ?
 	`
 
-	err := ur.conn.DB.GetContext(ctx, &dto, query, id)
+	err := ur.conn.DB.GetContext(ctx, &dto, query, mail)
 	if err != nil {
 		return nil, fmt.Errorf("CommunityRepository.GetCommunityById Get Error : %w", err)
 	}

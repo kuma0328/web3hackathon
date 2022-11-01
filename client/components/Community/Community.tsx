@@ -1,4 +1,3 @@
-import { Board } from '../BaseParts/Board';
 import { Button } from '../BaseParts/Button';
 import { Descriptions } from '../BaseParts/Descriptions';
 import { LinkTo } from '../BaseParts/LinkTo';
@@ -9,6 +8,7 @@ type TProps = {
   join?: boolean;
   description: string;
   onClickJoin?: () => void;
+  className?: string;
 };
 export const Community = ({
   title,
@@ -16,10 +16,11 @@ export const Community = ({
   recipeLink,
   description,
   onClickJoin,
+  className,
 }: TProps) => {
   return (
-    <Board>
-      <div className="p-5">
+    <div className="p-5">
+      <div className={`${className}`}>
         <div className="m-auto my-3 h-32 w-full rounded-md bg-orange-400"></div>
         <p className="text-center text-lg font-semibold">{title}</p>
         <Descriptions>
@@ -41,6 +42,6 @@ export const Community = ({
           )}
         </div>
       </div>
-    </Board>
+    </div>
   );
 };

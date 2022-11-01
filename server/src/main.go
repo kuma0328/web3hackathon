@@ -23,8 +23,9 @@ func main() {
 	// Routerの初期化
 	r := router.NewRouter()
 
-	r.Health()
+	r.InitHealthRouter()
 	r.InitCommunityRouter(conn)
+	r.InitRecipeRouter(conn)
 
 	// Routerの起動
 	r.Serve()

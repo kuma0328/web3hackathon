@@ -40,7 +40,7 @@ func (ur *UserRepository) CreateUser(ctx context.Context, user *entity.User) (*e
 
 func (ur *UserRepository) UpdateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	query := `
-	UPDATE communities
+	UPDATE users
 	SET name     = :name,
 		mail 	 = :mail,
 	WHERE id = :id
@@ -88,7 +88,7 @@ func (ur *UserRepository) GetUserByMail(ctx context.Context, mail string) (*enti
 
 func (ur *UserRepository) DeleteUser(ctx context.Context, id int) error {
 	query := `
-	DELETE FROM communities
+	DELETE FROM users
 	WHERE id = :id
 	`
 

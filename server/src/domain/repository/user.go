@@ -12,4 +12,5 @@ type IUserRepository interface {
 	GetUserByID(ctx context.Context, id int) (*entity.User, error)
 	GetUserByMail(ctx context.Context, mail string) (*entity.User, error)
 	DeleteUser(ctx context.Context, id int) error
+	LoginUser(ctx context.Context, user *entity.User) error
 }

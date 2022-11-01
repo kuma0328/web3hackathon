@@ -84,3 +84,15 @@ func (ur *UserUsecase) DeleteUser(ctx context.Context, id int) error {
 	err := ur.repo.DeleteUser(ctx, id)
 	return err
 }
+
+func (ur *UserUsecase) LoginUser(ctx context.Context, user *entity.User) error {
+	if user.Mail == "" {
+		return usecase_error.MailEmptyError
+	}
+	if user.Password == "" {
+		return usecase_error.PassWordEmptyError
+	}
+
+	err := ur.repo.LoginUser(ctx, user)
+	return err
+}

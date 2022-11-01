@@ -58,6 +58,18 @@ func (u *UserHandler) Sigunup(ctx *gin.Context) {
 	)
 }
 
+func (u *UserHandler) Login(ctx *gin.Context) {
+	var json userJson
+	if err := ctx.BindJSON(&json); err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+}
+
 type userJson struct {
 	Id       int    `json:"id"`
 	Name     string `json:"name"`

@@ -102,6 +102,15 @@ func (ur *UserRepository) DeleteUser(ctx context.Context, id int) error {
 	return nil
 }
 
+func (ur *UserRepository) LoginUser(ctx context.Context, user *entity.User) error {
+	user, err := ur.GetUserByID(ctx, user.Id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 type userDto struct {
 	Id       int    `db:"id"`
 	Name     string `db:"name"`

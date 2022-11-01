@@ -70,6 +70,22 @@ func (ur *UserRepository) GetUserByID(ctx context.Context, id int) (*entity.User
 	return userDtoToEntity(&dto), nil
 }
 
+func (ur *UserRepository) GetUserByMail(ctx context.Context, id int) (*entity.User, error) {
+	var dto userDto
+
+	query := `
+	SELECT id, name, mail  
+	FROM users
+	WHERE mail = ?
+	`
+
+	err := ur.conn.DB.GetContext(ctx, &dto, query, id)
+	if err != nil {
+		return nil, fmt.Errorf("CommunityRepository.GetCommunityById Get Error : %w", err)
+	}
+	return userDtoToEntity(&dto), nil
+}
+
 func (ur *UserRepository) DeleteUser(ctx context.Context, id int) error {
 	query := `
 	DELETE FROM communities

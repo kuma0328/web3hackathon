@@ -18,6 +18,7 @@ type IUserUsecase interface {
 	CreateUser(context.Context, *entity.User) (*entity.User, error)
 	UpdateUser(context.Context, *entity.User) (*entity.User, error)
 	GetUserByID(ctx context.Context, id int) (*entity.User, error)
+	GetUserByMail(ctx context.Context, id int) (*entity.User, error)
 	DeleteUser(ctx context.Context, id int) error
 }
 
@@ -58,7 +59,12 @@ func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*enti
 }
 
 func (ur *UserUsecase) GetUserByID(ctx context.Context, id int) (*entity.User, error) {
-	user, err := ur.repo.GetUser(ctx, id)
+	user, err := ur.repo.GetUserByID(ctx, id)
+	return user, err
+}
+
+func (ur *UserUsecase) GetUserByMail(ctx context.Context, id int) (*entity.User, error) {
+	user, err := ur.repo.GetUserByID(ctx, id)
 	return user, err
 }
 

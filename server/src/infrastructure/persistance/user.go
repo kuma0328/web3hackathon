@@ -54,7 +54,7 @@ func (ur *UserRepository) UpdateUser(ctx context.Context, user *entity.User) (*e
 	return userDtoToEntity(&dto), nil
 }
 
-func (ur *UserRepository) GetUser(ctx context.Context, id int) (*entity.User, error) {
+func (ur *UserRepository) GetUserByID(ctx context.Context, id int) (*entity.User, error) {
 	var dto userDto
 
 	query := `

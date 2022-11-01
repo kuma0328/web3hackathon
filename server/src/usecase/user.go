@@ -17,7 +17,7 @@ type UserUsecase struct {
 type IUserUsecase interface {
 	CreateUser(context.Context, *entity.User) (*entity.User, error)
 	UpdateUser(context.Context, *entity.User) (*entity.User, error)
-	GetUser(ctx context.Context, id int) (*entity.User, error)
+	GetUserByID(ctx context.Context, id int) (*entity.User, error)
 	DeleteUser(ctx context.Context, id int) error
 }
 
@@ -57,7 +57,7 @@ func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*enti
 	return user, err
 }
 
-func (ur *UserUsecase) GetUser(ctx context.Context, id int) (*entity.User, error) {
+func (ur *UserUsecase) GetUserByID(ctx context.Context, id int) (*entity.User, error) {
 	user, err := ur.repo.GetUser(ctx, id)
 	return user, err
 }

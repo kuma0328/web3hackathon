@@ -9,6 +9,6 @@ import (
 type IUserRepository interface {
 	CreateUser(context.Context, *entity.User) (*entity.User, error)
 	UpdateUser(context.Context, *entity.User) (*entity.User, error)
-	GetUser(ctx context.Context, id int) (*entity.User, error)
+	GetUserByID(ctx context.Context, id int) (*entity.User, error)
 	DeleteUser(ctx context.Context, id int) error
 }

@@ -11,6 +11,8 @@ const communityDetail = () => {
         <Community
           title="焼肉同好会"
           description="焼肉同好会では各地のさまざまな焼き肉を食べながら交流を深めて行きます"
+          recipeLink="a"
+          onClickJoin={() => 1}
         />
         <ChatsBoard />
       </div>

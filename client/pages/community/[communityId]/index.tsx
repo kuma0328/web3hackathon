@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
-import { Chats } from '../../components/Chats/Chats';
-import { Community } from '../../components/Community/Community';
-import { Page } from '../../components/Wrapper/Page';
+import { Chats } from '../../../components/Chats/Chats';
+import { Community } from '../../../components/Community/Community';
+import { Page } from '../../../components/Wrapper/Page';
 const communityDetail = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { communityId } = router.query;
   return (
     <Page
       wide={false}

@@ -8,7 +8,7 @@ type TProps = {
 };
 export const Community = ({ title, link, description }: TProps) => {
   return (
-    <Board>
+    <Board className="m-2">
       <div className="p-5">
         <div className="m-auto my-3 h-32 w-full rounded-md bg-orange-400"></div>
         <div>

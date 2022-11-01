@@ -11,7 +11,7 @@ export const Page = ({ className, children, wide }: TProps) => {
       className={
         wide
           ? `${className} flex min-h-screen flex-col items-center justify-center bg-bc p-3`
-          : `${className} min-h-screen bg-bc`
+          : `${className} bg-bc`
       }
     >
       {children}

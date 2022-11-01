@@ -5,7 +5,7 @@ import { Page } from '../../components/Wrapper/Page';
 
 const index = () => {
   return (
-    <Page wide={false} className="p-10">
+    <Page wide={false} className="p-5 md:p-10">
       <TypoGraphy className="my-10 text-2xl">
         所属しているコミュニティ
       </TypoGraphy>

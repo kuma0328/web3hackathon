@@ -2,7 +2,7 @@ import { Community } from './Community';
 
 export const Communities = () => {
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 xl:grid-cols-4">
       {[0, 1, 2, 3, 4, 5].map((idx) => {
         return (
           <Community

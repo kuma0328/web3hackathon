@@ -1,10 +1,8 @@
 import { useSelectingChatStore } from '../../stores/SelectingChatStore';
 import { Chat } from './Chat';
-import { Messages } from './Messages/Messages';
+import { Comments } from './Comments/Comments';
 
-// どのタブを選んでいるのかはstateで管理する
-// クリックで各チャット欄に移動する感じで
-export const ChatsBoard = () => {
+export const Chats = () => {
   const { recipe, random, tips, setRecipeChat, setRandomChat, setTipsChat } =
     useSelectingChatStore();
   return (
@@ -14,21 +12,21 @@ export const ChatsBoard = () => {
         className="ml-10 bg-lime-400"
         onClick={setRecipeChat}
       >
-        {recipe && <Messages />}
+        {recipe && <Comments />}
       </Chat>
       <Chat
         chatTitle="ランダム"
         className="left-1/3  bg-red-400"
         onClick={setRandomChat}
       >
-        {random && <Messages />}
+        {random && <Comments />}
       </Chat>
       <Chat
         chatTitle="豆知識"
         className="left-2/3 -ml-10 bg-teal-400"
         onClick={setTipsChat}
       >
-        {tips && <Messages />}
+        {tips && <Comments />}
       </Chat>
     </div>
   );

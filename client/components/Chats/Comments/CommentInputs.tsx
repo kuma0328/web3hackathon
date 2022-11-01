@@ -4,7 +4,7 @@ import { Button } from '../../BaseParts/Button';
 type TProps = {
   onClick: () => void;
 };
-export const Inputs = ({ onClick }: TProps) => {
+export const CommentInputs = ({ onClick }: TProps) => {
   const { chatContent, chatImage, setChatContent, setChatImage } =
     useChatContentStore();
   return (

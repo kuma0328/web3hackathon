@@ -79,3 +79,38 @@ func Test_UserUpadate(t *testing.T) {
 	)
 
 }
+
+func Test_UserGet(t *testing.T) {
+
+	t.Run(
+		"Getが成功する",
+		func(t *testing.T) {
+			// Arrange
+			testuser := &entity.User{
+				Id:   1,
+				Name: "testName",
+				Mail: "test@test.com",
+			}
+			db_test, mock, err := sqlmock.New()
+			if err != nil {
+				t.Error(err.Error())
+			}
+			defer db_test.Close()
+			mock.ExpectQuery(regexp.QuoteMeta("SELECT id, name, mail FROM users")).
+				WithArgs(testuser.Id).
+				WillReturnRows(sqlmock.NewRows([]string{"id", "name", "mail"}).AddRow(testuser.Id, testuser.Name, testuser.Mail))
+
+			sqlx_db := sqlx.NewDb(db_test, "test")
+
+			com := &database.Conn{DB: sqlx_db}
+			r := &UserRepository{conn: com}
+			ctx := context.Background()
+			_, err = r.GetUserByID(ctx, testuser.Id)
+
+			if err != nil {
+				t.Error(err.Error())
+			}
+		},
+	)
+
+}

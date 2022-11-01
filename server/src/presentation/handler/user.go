@@ -1,8 +1,11 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/kuma0328/web3hackathon/domain/entity"
+	"github.com/kuma0328/web3hackathon/infrastructure/persistance"
 	"github.com/kuma0328/web3hackathon/usecase"
 )
 
@@ -17,10 +20,42 @@ func NewUserHandler(uc usecase.IUserUsecase) *UserHandler {
 }
 
 func (u *UserHandler) Sigunup(ctx *gin.Context) {
-	newName := ctx.Param("name")
-	newMail := ctx.Param("mail")
-	newMail := ctx.Param("password")
+	var json userJson
+	if err := ctx.BindJSON(&json); err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
 
+	user, err := u.uc.GetUserByMail(ctx, userJsonToEntity(&json).Mail)
+
+	if user.Name != "" {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": "mail already used"},
+		)
+		return
+	}
+
+	user, err = u.uc.CreateUser(ctx, userJsonToEntity(&json))
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	cookieKey := "_cookie"
+	persistance.NewSession(ctx, cookieKey, user.Id)
+
+	userJson := userEntityToJson(user)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": userJson},
+	)
 }
 
 type userJson struct {

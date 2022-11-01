@@ -23,9 +23,11 @@ func NewUserRepository(conn *database.Conn) repository.IUserRepository {
 
 func (ur *UserRepository) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	query := `
-	INSERT INTO users (name, mail)
-	VALUES (:name,:mail)
+	INSERT INTO users (name, mail,password)
+	VALUES (:name,:mail,:password)
 	`
+	hashpass, err := PasswordEncrypt(user.Password)
+	user.Password = hashpass
 	dto := userEntityToDto(user)
 	res, err := ur.conn.DB.NamedExecContext(ctx, query, &dto)
 

@@ -36,12 +36,28 @@ func (repo *RecipeStepRepository) GetRecipeStepsByRecipeId(ctx context.Context, 
 	return recipeStepsDtoToEntity(dtos),nil
 }
 
+// TODO 自動でNumberを振り分けられるようにする
+func (repo *RecipeStepRepository) PostNewRecipeStep(ctx context.Context,step *entity.RecipeStep,recipeId int) (*entity.RecipeStep,error) {
+	dto := recipeStepEntityToDto(step)
+	dto.RecipeId = recipeId
 
+	query := `
+	INSERT INTO recipe_steps (number, content, recipe_id)
+	VALUES (:number, :content, :recipe_id)
+	`
+	res,err := repo.conn.DB.NamedExecContext(ctx,query,dto)
+	if err != nil{
+		return nil, fmt.Errorf("RecipeStepRepository.PostNewRecipeStep NamedExecContext Error : %w", err)
+	}
 
+	id,err := res.LastInsertId()
+	if err != nil{
+		return nil, fmt.Errorf("RecipeStepRepository.PostNewRecipeStep LastInsertId Error : %w", err)
+	}
+	dto.Id = (int)(id)
 
-
-
-
+	return recipeStepDtoToEntity(dto),nil
+}
 
 type recipeStepDto struct {
 	Id      int `db:"id"`
@@ -64,7 +80,7 @@ func recipeStepsEntityToDto(recipeSteps entity.RecipeSteps) recipeStepsDto {
 func recipeStepEntityToDto(recipeStep *entity.RecipeStep) *recipeStepDto {
 	return &recipeStepDto{
 		Id: recipeStep.Id,
-		Number: recipeStep.Id,
+		Number: recipeStep.Number,
 		Content: recipeStep.Content,
 	}
 }
@@ -83,7 +99,7 @@ func recipeStepsDtoToEntity(dtos recipeStepsDto) entity.RecipeSteps {
 func recipeStepDtoToEntity(dto *recipeStepDto) *entity.RecipeStep {
 	return &entity.RecipeStep{
 		Id: dto.Id,
-		Number:dto.Id,
+		Number:dto.Number,
 		Content: dto.Content,
 	}
 }

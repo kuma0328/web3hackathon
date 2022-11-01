@@ -36,6 +36,27 @@ func (repo *SpiceRepository) GetSpicesByRecipeId(ctx context.Context, recipeId i
 	return spicesDtoToEntity(dtos),nil
 }
 
+func (repo *SpiceRepository) PostNewSpice(ctx context.Context,spice *entity.Spice ,recipeId int) (*entity.Spice,error) {
+	dto := spiceEntityToDto(spice)
+	dto.RecipeId = recipeId
+
+	query := `
+	INSERT INTO spices (name, recipe_id)
+	VALUES (:name, :recipe_id)
+	`
+	res,err := repo.conn.DB.NamedExecContext(ctx,query,dto)
+	if err!= nil{
+		return nil, fmt.Errorf("SpiceRepository.PostNewSpice NamedExecContext Error : %w", err)
+	}
+
+	id,err := res.LastInsertId()
+	if err != nil{
+		return nil, fmt.Errorf("SpiceRepository.PostNewSpice LastInsertId Error : %w", err)
+	}
+	dto.Id = (int)(id)
+
+	return spiceDtoToEntity(dto),nil
+}
 
 type spiceDto struct {
 	Id   int `db:"id"`

@@ -95,20 +95,7 @@ type recipeJson struct {
 
 type recipesJson []*recipeJson
 
-type recipeStepJson struct {
-	Id      int `json:"id"`
-	Number  int `json:"number"`
-	Content string `json:"content"`
-}
 
-type recipeStepsJson []*recipeStepJson
-
-type spiceJson struct {
-	Id   int `json:"id"`
-	Name string `json:"name"`
-}
-
-type spicesJson []*spiceJson
 
 // entity to json
 func recipeEntityToJson(recipe *entity.Recipe) *recipeJson {
@@ -121,22 +108,6 @@ func recipeEntityToJson(recipe *entity.Recipe) *recipeJson {
 	}
 }
 
-func recipeStepsEntityToJson(recipeSteps entity.RecipeSteps) recipeStepsJson {
-	var r recipeStepsJson
-	for _,step := range recipeSteps {
-		r = append(r, recipeStepEntityToJson(step))
-	}
-	return r
-}
-
-func recipeStepEntityToJson(recipeStep *entity.RecipeStep) *recipeStepJson {
-	return &recipeStepJson{
-		Id: recipeStep.Id,
-		Number: recipeStep.Id,
-		Content: recipeStep.Content,
-	}
-}
-
 func spicesEntityToJson(spices entity.Spices) spicesJson {
 	var s spicesJson
 	for _,spice := range spices {
@@ -146,12 +117,6 @@ func spicesEntityToJson(spices entity.Spices) spicesJson {
 }
 
 
-func spiceEntityToJson(spice *entity.Spice) *spiceJson {
-	return &spiceJson{
-		Id: spice.Id,
-		Name: spice.Name,
-	}
-}
 
 
 // json to entity

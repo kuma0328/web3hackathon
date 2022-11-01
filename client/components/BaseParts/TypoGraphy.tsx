@@ -5,6 +5,6 @@ type TProps = {
 };
 export const TypoGraphy = ({ className, children }: TProps) => {
   return (
-    <div className={`${className} my-5 font-semibold text-fc`}>{children}</div>
+    <div className={`${className}  font-semibold text-fc`}>{children}</div>
   );
 };

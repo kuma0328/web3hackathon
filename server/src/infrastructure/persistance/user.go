@@ -103,9 +103,18 @@ func (ur *UserRepository) DeleteUser(ctx context.Context, id int) error {
 }
 
 func (ur *UserRepository) LoginUser(ctx context.Context, user *entity.User) error {
-	user, err := ur.GetUserByID(ctx, user.Id)
+	dbuser, err := ur.GetUserByID(ctx, user.Id)
 	if err != nil {
-		return err
+		return fmt.Errorf("GetUserByID Error : %w", err)
+	}
+	if dbuser.Name == "" {
+		return fmt.Errorf("id not found")
+	}
+
+	err = CompareHashAndPassword(dbuser.Password, user.Password)
+
+	if err != nil {
+		return fmt.Errorf("PassWord not ok Error : %w", err)
 	}
 
 	return nil

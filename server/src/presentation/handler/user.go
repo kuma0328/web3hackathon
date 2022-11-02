@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/kuma0328/web3hackathon/domain/entity"
@@ -67,6 +68,60 @@ func (u *UserHandler) Login(ctx *gin.Context) {
 		)
 		return
 	}
+
+	err := u.uc.LoginUser(ctx, userJsonToEntity(&json))
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	cookieKey := "_cookie"
+	persistance.NewSession(ctx, cookieKey, userJsonToEntity(&json).Id)
+
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"login": "ok"},
+	)
+}
+
+func (u *UserHandler) Logout(ctx *gin.Context) {
+	cookieKey := "_cookie"
+	persistance.DeleteSession(ctx, cookieKey)
+
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"delete": "ok"},
+	)
+}
+
+func (u *UserHandler) GetUserByID(ctx *gin.Context) {
+	idString := ctx.Param("id")
+	id, err := strconv.Atoi(idString)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	user, err := u.uc.GetUserByID(ctx, id)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	userJson := userEntityToJson(user)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": userJson},
+	)
 
 }
 

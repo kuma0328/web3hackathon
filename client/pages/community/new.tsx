@@ -7,12 +7,12 @@ import { Page } from '../../components/Wrapper/Page';
 const recipe = () => {
   return (
     <Page wide={true}>
-      <Board className="w-full py-5">
+      <Board className="w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <CommunityInputs />
           <RecipeInputs />
         </div>
-        <div className="flex justify-center">
+        <div className="mb-5 flex justify-center">
           <Button onClick={() => console.log('submit')}>
             コミュニティを作成する
           </Button>

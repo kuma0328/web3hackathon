@@ -14,7 +14,7 @@ func (r Router) InitCommunityRouter(conn *database.Conn) {
 
 	g := r.Engine.Group("/community")
 	g.GET("/:id", h.GetCommunityById)
-	g.PUT("/:id",h.UpdateCommunityOfId)
-	g.DELETE("/:id",h.DeleteCommunityOfId)
-	g.POST("/",h.CreateNewCommunity)
+	g.PUT("/:id", h.UpdateCommunityOfId)
+	g.DELETE("/:id", h.DeleteCommunityOfId)
+	g.POST("/", h.CreateNewCommunity)
 }

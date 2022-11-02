@@ -2,7 +2,9 @@ package persistance
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/kuma0328/web3hackathon/domain/entity"
 	"github.com/kuma0328/web3hackathon/domain/repository"
@@ -76,15 +78,17 @@ func (ur *UserRepository) GetUserByMail(ctx context.Context, mail string) (*enti
 	var dto userDto
 
 	query := `
-	SELECT id, name, mail  
+	SELECT * 
 	FROM users
 	WHERE mail = ?
+	LIMIT 1
 	`
 
-	err := ur.conn.DB.GetContext(ctx, &dto, query, mail)
-	if err != nil {
-		return nil, fmt.Errorf("CommunityRepository.GetCommunityById Get Error : %w", err)
+	err := ur.conn.DB.Get(&dto, query, mail)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
 	}
+	log.Println("dokodeerror")
 	return userDtoToEntity(&dto), nil
 }
 
@@ -103,12 +107,12 @@ func (ur *UserRepository) DeleteUser(ctx context.Context, id int) error {
 }
 
 func (ur *UserRepository) LoginUser(ctx context.Context, user *entity.User) error {
-	dbuser, err := ur.GetUserByID(ctx, user.Id)
+	dbuser, err := ur.GetUserByMail(ctx, user.Mail)
 	if err != nil {
 		return fmt.Errorf("GetUserByID Error : %w", err)
 	}
 	if dbuser.Name == "" {
-		return fmt.Errorf("id not found")
+		return fmt.Errorf("mail not found")
 	}
 
 	err = CompareHashAndPassword(dbuser.Password, user.Password)

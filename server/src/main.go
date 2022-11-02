@@ -25,6 +25,7 @@ func main() {
 
 	r.Health()
 	r.InitCommunityRouter(conn)
+	r.InitUserRouter(conn)
 
 	// Routerの起動
 	r.Serve()

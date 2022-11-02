@@ -24,18 +24,18 @@ func NewSession(c *gin.Context, cookieKey string, redisValue int) {
 	c.SetCookie(cookieKey, newRedisKey, 0, "/", "localhost", false, false)
 }
 
-func GetSession(c *gin.Context, cookieKey string) (interface{}, error) {
+func GetSession(c *gin.Context, cookieKey string) interface{} {
 	redisKey, _ := c.Cookie(cookieKey)
 	redisValue, err := connRedi.Get(redisKey).Result()
 	switch {
 	case err == redis.Nil:
 		fmt.Println("SessionKey not found")
-		return nil, err
+		return nil
 	case err != nil:
 		fmt.Println("Error Get Session:" + err.Error())
-		return nil, err
+		return nil
 	}
-	return redisValue, nil
+	return redisValue
 }
 
 func DeleteSession(c *gin.Context, cookieKey string) {

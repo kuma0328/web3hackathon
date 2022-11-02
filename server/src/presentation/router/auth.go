@@ -10,8 +10,8 @@ import (
 func checkLogin() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		cookieKey := "_cookie"
-		id, err := persistance.GetSession(c, cookieKey)
-		if id == nil || err != nil {
+		id := persistance.GetSession(c, cookieKey)
+		if id == nil {
 			c.Redirect(http.StatusFound, "/login")
 			c.Abort()
 		} else {
@@ -23,8 +23,8 @@ func checkLogin() gin.HandlerFunc {
 func checkLogout() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		cookieKey := "_cookie"
-		id, err := persistance.GetSession(c, cookieKey)
-		if id != nil || err != nil {
+		id := persistance.GetSession(c, cookieKey)
+		if id != nil {
 			c.Redirect(http.StatusFound, "/")
 			c.Abort()
 		} else {

@@ -12,8 +12,12 @@ func (r Router) InitUserRouter(conn *database.Conn) {
 	uc := usecase.NewUserUsecase(repo)
 	h := handler.NewUserHandler(uc)
 
+	g := r.Engine.Group("/user")
+	g.GET("/:id", h.GetUserByID)
+
 	loginCheckGroup := r.Engine.Group("/user", checkLogin())
 	loginCheckGroup.GET("/logout", h.Logout)
+	loginCheckGroup.PUT("/update", h.UpdateUser)
 
 	logoutCheckGroup := r.Engine.Group("/user", checkLogout())
 	logoutCheckGroup.POST("/signup", h.Sigunup)

@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -22,8 +21,6 @@ func NewUserHandler(uc usecase.IUserUsecase) *UserHandler {
 }
 
 func (u *UserHandler) Sigunup(ctx *gin.Context) {
-	log.Println("1")
-
 	var json userJson
 	if err := ctx.BindJSON(&json); err != nil {
 		ctx.JSON(
@@ -32,7 +29,6 @@ func (u *UserHandler) Sigunup(ctx *gin.Context) {
 		)
 		return
 	}
-	log.Println("2")
 
 	user, err := u.uc.GetUserByMail(ctx, userJsonToEntity(&json).Mail)
 
@@ -44,7 +40,6 @@ func (u *UserHandler) Sigunup(ctx *gin.Context) {
 		return
 	}
 
-	log.Println("3")
 	user, err = u.uc.CreateUser(ctx, userJsonToEntity(&json))
 	if err != nil {
 		ctx.JSON(
@@ -54,11 +49,9 @@ func (u *UserHandler) Sigunup(ctx *gin.Context) {
 		return
 	}
 
-	log.Println("4")
 	cookieKey := "_cookie"
 	session.NewSession(ctx, cookieKey, user.Id)
 
-	log.Println("5")
 	userJson := userEntityToJson(user)
 	ctx.JSON(
 		http.StatusOK,
@@ -130,6 +123,32 @@ func (u *UserHandler) GetUserByID(ctx *gin.Context) {
 		gin.H{"data": userJson},
 	)
 
+}
+
+func (u *UserHandler) UpdateUser(ctx *gin.Context) {
+	var json userJson
+	if err := ctx.BindJSON(&json); err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	user, err := u.uc.UpdateUser(ctx, userJsonToEntity(&json))
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	userJson := userEntityToJson(user)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": userJson},
+	)
 }
 
 type userJson struct {

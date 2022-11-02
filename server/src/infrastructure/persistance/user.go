@@ -46,10 +46,14 @@ func (ur *UserRepository) UpdateUser(ctx context.Context, user *entity.User) (*e
 	UPDATE users
 	SET name     = :name,
 		mail 	 = :mail,
+		password = :password
 	WHERE id = :id
 	`
+
+	hashpass, err := PasswordEncrypt(user.Password)
+	user.Password = hashpass
 	dto := userEntityToDto(user)
-	_, err := ur.conn.DB.NamedExecContext(ctx, query, &dto)
+	_, err = ur.conn.DB.NamedExecContext(ctx, query, &dto)
 
 	if err != nil {
 		return nil, fmt.Errorf("UserRepository.CreateNewUser NamedExec Error : %w", err)

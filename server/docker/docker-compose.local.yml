@@ -10,3 +10,8 @@ services:
     container_name: web3hackathon-database
     restart: always
     tty: true
+
+  redis:
+    container_name: web3hackathon-redis
+    restart: always
+    tty: true

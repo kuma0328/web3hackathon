@@ -1,5 +1,7 @@
 import { useRecipeStore } from '../../stores/RecipeStore';
 import { TypoGraphy } from '../BaseParts/TypoGraphy';
+import { CreateButton } from './CreateButton';
+import { DeleteButton } from './DeleteButton';
 
 export const RecipeInputs = () => {
   const {
@@ -14,7 +16,6 @@ export const RecipeInputs = () => {
     deleteMaterial,
     deleteProcess,
   } = useRecipeStore();
-  console.log(processes);
   return (
     <div className="lg:p-5">
       <div className="m-3 grid grid-cols-1 lg:m-10">
@@ -27,27 +28,22 @@ export const RecipeInputs = () => {
               onChange={(e) => changeMaterial(e.target.value)}
               value={material}
             />
-            <button
-              className="rounded-md border border-black p-2 shadow-lg"
-              onClick={() => {
-                setMaterial(material);
-                changeMaterial('');
-              }}
-            >
-              ＋
-            </button>
+            <CreateButton
+              data={material}
+              onCreate={setMaterial}
+              resetCurrent={() => changeMaterial('')}
+            />
           </div>
-          <div className="grid grid-cols-3 place-items-center justify-items-center gap-2 overflow-y-auto">
-            {materials.map((mt) => {
+          <div className="grid grid-cols-3 place-items-center justify-items-center gap-2 pt-3">
+            {materials.map((mt, idx) => {
               return (
-                <div className="w-full rounded-md border border-black p-4 shadow-md">
-                  {mt}
-                  <button
-                    className="h-6 w-6 rounded-md bg-orange-400"
-                    onClick={() => deleteMaterial(mt)}
-                  >
-                    ×
-                  </button>
+                <div
+                  className="relative w-full rounded-md border border-black p-4 shadow-md"
+                  key={idx}
+                >
+                  <p className="overflow-x-auto">{mt}</p>
+
+                  <DeleteButton onDelete={deleteMaterial} data={mt} />
                 </div>
               );
             })}
@@ -63,31 +59,24 @@ export const RecipeInputs = () => {
               onChange={(e) => changeProcess(e.target.value)}
               value={process}
             />
-            <button
-              className="rounded-md border border-black p-2 shadow-lg"
-              onClick={() => {
-                setProcess(process);
-                changeProcess('');
-              }}
-            >
-              ＋
-            </button>
+            <CreateButton
+              data={process}
+              onCreate={setProcess}
+              resetCurrent={() => changeProcess('')}
+            />
           </div>
-          <div className="overflow-y-auto">
+          <div>
             {processes.map((pro, idx) => {
               return (
-                <div className="flex p-2">
-                  <button
-                    className="h-6 w-6 rounded-md bg-orange-400"
-                    onClick={() => deleteProcess(pro)}
-                  >
-                    ×
-                  </button>
-                  <div className="mr-10 flex w-10 items-center justify-center rounded-md border border-black p-3 text-center">
+                <div className="flex p-2" key={idx}>
+                  <div className="relative mr-10 flex w-10 items-center justify-center rounded-md border border-black p-3 text-center">
+                    <DeleteButton onDelete={deleteProcess} data={pro} />
                     {idx}
                   </div>
 
-                  <p className="border-b border-black p-2">{pro}</p>
+                  <p className="overflow-x-auto border-b border-black p-2">
+                    {pro}
+                  </p>
                 </div>
               );
             })}

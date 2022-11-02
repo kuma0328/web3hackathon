@@ -18,6 +18,7 @@ func (r Router) InitUserRouter(conn *database.Conn) {
 	loginCheckGroup := r.Engine.Group("/user", checkLogin())
 	loginCheckGroup.GET("/logout", h.Logout)
 	loginCheckGroup.PUT("/update", h.UpdateUser)
+	loginCheckGroup.DELETE("/:id", h.DeleteUser)
 
 	logoutCheckGroup := r.Engine.Group("/user", checkLogout())
 	logoutCheckGroup.POST("/signup", h.Sigunup)

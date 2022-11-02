@@ -93,7 +93,7 @@ func (u *UserHandler) Logout(ctx *gin.Context) {
 
 	ctx.JSON(
 		http.StatusOK,
-		gin.H{"delete": "ok"},
+		gin.H{"logout": "ok"},
 	)
 }
 
@@ -148,6 +148,32 @@ func (u *UserHandler) UpdateUser(ctx *gin.Context) {
 	ctx.JSON(
 		http.StatusOK,
 		gin.H{"data": userJson},
+	)
+}
+
+func (u *UserHandler) DeleteUser(ctx *gin.Context) {
+	idString := ctx.Param("id")
+	id, err := strconv.Atoi(idString)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	err = u.uc.DeleteUser(ctx, id)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"delete": "ok"},
 	)
 }
 

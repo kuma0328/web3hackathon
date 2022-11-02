@@ -16,8 +16,11 @@ yarn dev
 |
 | -- hooks // servicesで呼び出したAPI結果をhooksにまとめる
 |
-| -- services // API呼び出し
+| -- repository // API呼び出し
 |
 | -- styles // CSSが必要な場合
+|
+| -- models // Typeをまとめる
+
 
 ```

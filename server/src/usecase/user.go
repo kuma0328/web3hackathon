@@ -29,7 +29,7 @@ func NewUserUsecase(ur repository.IUserRepository) IUserUsecase {
 	}
 }
 
-func (ur *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
+func (uu *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	if user.Name == "" {
 		return nil, usecase_error.NameEmptyError
 	}
@@ -40,11 +40,11 @@ func (ur *UserUsecase) CreateUser(ctx context.Context, user *entity.User) (*enti
 		return nil, usecase_error.PassWordEmptyError
 	}
 
-	user, err := ur.repo.CreateUser(ctx, user)
+	user, err := uu.repo.CreateUser(ctx, user)
 	return user, err
 }
 
-func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
+func (uu *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	if user.Name == "" {
 		return nil, usecase_error.NameEmptyError
 	}
@@ -55,38 +55,38 @@ func (ur *UserUsecase) UpdateUser(ctx context.Context, user *entity.User) (*enti
 		return nil, usecase_error.PassWordEmptyError
 	}
 
-	user, err := ur.repo.UpdateUser(ctx, user)
+	user, err := uu.repo.UpdateUser(ctx, user)
 	return user, err
 }
 
-func (ur *UserUsecase) GetUserByID(ctx context.Context, id int) (*entity.User, error) {
+func (uu *UserUsecase) GetUserByID(ctx context.Context, id int) (*entity.User, error) {
 	if id == 0 {
 		return nil, usecase_error.IdEmptyError
 	}
 
-	user, err := ur.repo.GetUserByID(ctx, id)
+	user, err := uu.repo.GetUserByID(ctx, id)
 	return user, err
 }
 
-func (ur *UserUsecase) GetUserByMail(ctx context.Context, mail string) (*entity.User, error) {
+func (uu *UserUsecase) GetUserByMail(ctx context.Context, mail string) (*entity.User, error) {
 	if mail == "" {
 		return nil, usecase_error.MailEmptyError
 	}
 
-	user, err := ur.repo.GetUserByMail(ctx, mail)
+	user, err := uu.repo.GetUserByMail(ctx, mail)
 	return user, err
 }
 
-func (ur *UserUsecase) DeleteUser(ctx context.Context, id int) error {
+func (uu *UserUsecase) DeleteUser(ctx context.Context, id int) error {
 	if id == 0 {
 		return usecase_error.IdEmptyError
 	}
 
-	err := ur.repo.DeleteUser(ctx, id)
+	err := uu.repo.DeleteUser(ctx, id)
 	return err
 }
 
-func (ur *UserUsecase) LoginUser(ctx context.Context, user *entity.User) error {
+func (uu *UserUsecase) LoginUser(ctx context.Context, user *entity.User) error {
 	if user.Mail == "" {
 		return usecase_error.MailEmptyError
 	}
@@ -94,6 +94,6 @@ func (ur *UserUsecase) LoginUser(ctx context.Context, user *entity.User) error {
 		return usecase_error.PassWordEmptyError
 	}
 
-	err := ur.repo.LoginUser(ctx, user)
+	err := uu.repo.LoginUser(ctx, user)
 	return err
 }

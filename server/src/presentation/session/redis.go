@@ -1,11 +1,11 @@
-package persistance
+package session
 
 import "github.com/go-redis/redis"
 
-var connRedi *redis.Client
+var connRedis *redis.Client
 
 func init() {
-	connRedi = redis.NewClient(&redis.Options{
+	connRedis = redis.NewClient(&redis.Options{
 		Addr:     "redis:6379",
 		Password: "",
 		DB:       0,

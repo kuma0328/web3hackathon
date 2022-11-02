@@ -1,16 +1,19 @@
 package router
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kuma0328/web3hackathon/infrastructure/persistance"
+	"github.com/kuma0328/web3hackathon/presentation/session"
 )
 
 func checkLogin() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		log.Println("1")
 		cookieKey := "_cookie"
-		id := persistance.GetSession(c, cookieKey)
+		id := session.GetSession(c, cookieKey)
+		log.Println("1")
 		if id == nil {
 			c.Redirect(http.StatusFound, "/login")
 			c.Abort()
@@ -23,7 +26,7 @@ func checkLogin() gin.HandlerFunc {
 func checkLogout() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		cookieKey := "_cookie"
-		id := persistance.GetSession(c, cookieKey)
+		id := session.GetSession(c, cookieKey)
 		if id != nil {
 			c.Redirect(http.StatusFound, "/")
 			c.Abort()

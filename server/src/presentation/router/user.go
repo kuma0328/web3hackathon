@@ -13,14 +13,10 @@ func (r Router) InitUserRouter(conn *database.Conn) {
 	h := handler.NewUserHandler(uc)
 
 	loginCheckGroup := r.Engine.Group("/user", checkLogin())
-	{
-		loginCheckGroup.GET("/logout", h.Logout)
-	}
+	loginCheckGroup.GET("/logout", h.Logout)
 
 	logoutCheckGroup := r.Engine.Group("/user", checkLogout())
-	{
-		logoutCheckGroup.POST("/signup", h.Sigunup)
-		logoutCheckGroup.POST("/login", h.Login)
-	}
+	logoutCheckGroup.POST("/signup", h.Sigunup)
+	logoutCheckGroup.POST("/login", h.Login)
 
 }

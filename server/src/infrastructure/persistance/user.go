@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"log"
 
 	"github.com/kuma0328/web3hackathon/domain/entity"
 	"github.com/kuma0328/web3hackathon/domain/repository"
@@ -88,7 +87,6 @@ func (ur *UserRepository) GetUserByMail(ctx context.Context, mail string) (*enti
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
-	log.Println("dokodeerror")
 	return userDtoToEntity(&dto), nil
 }
 

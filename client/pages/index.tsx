@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { TypoGraphy } from '../components/BaseParts/TypoGraphy';
-import { Button } from '../components/BaseParts/Button';
+import { useGetHealth } from '../hooks/Health/useGetHealth';
 
 export default function Home() {
+  const { data, error, isLoading } = useGetHealth();
   return (
     <div>
       <Head>

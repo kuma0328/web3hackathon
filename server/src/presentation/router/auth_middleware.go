@@ -1,7 +1,6 @@
 package router
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,10 +9,8 @@ import (
 
 func checkLogin() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		log.Println("1")
 		cookieKey := "_cookie"
 		id := session.GetSession(c, cookieKey)
-		log.Println("1")
 		if id == nil {
 			c.Redirect(http.StatusFound, "/login")
 			c.Abort()

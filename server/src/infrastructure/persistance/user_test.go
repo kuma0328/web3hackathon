@@ -14,7 +14,7 @@ import (
 func Test_UserCreate(t *testing.T) {
 
 	t.Run(
-		"Createが成功する",
+		"UserCreateが成功する",
 		func(t *testing.T) {
 			// Arrange
 			testuser := &entity.User{
@@ -48,7 +48,7 @@ func Test_UserCreate(t *testing.T) {
 func Test_UserUpadate(t *testing.T) {
 
 	t.Run(
-		"Updateが成功する",
+		"UserUpdateが成功する",
 		func(t *testing.T) {
 			// Arrange
 			testuser := &entity.User{
@@ -83,7 +83,7 @@ func Test_UserUpadate(t *testing.T) {
 func Test_UserGet(t *testing.T) {
 
 	t.Run(
-		"Getが成功する",
+		"UserGetが成功する",
 		func(t *testing.T) {
 			// Arrange
 			testuser := &entity.User{

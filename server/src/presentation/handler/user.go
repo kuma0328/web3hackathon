@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"net/http"
 	"strconv"
 
@@ -31,6 +32,14 @@ func (u *UserHandler) Sigunup(ctx *gin.Context) {
 	}
 
 	user, err := u.uc.GetUserByMail(ctx, userJsonToEntity(&json).Mail)
+
+	if err != nil && err != sql.ErrNoRows {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
 
 	if user.Name != "" {
 		ctx.JSON(
@@ -188,10 +197,9 @@ type usersJson []userJson
 
 func userEntityToJson(c *entity.User) userJson {
 	return userJson{
-		Id:       c.Id,
-		Name:     c.Name,
-		Mail:     c.Mail,
-		Password: c.Password,
+		Id:   c.Id,
+		Name: c.Name,
+		Mail: c.Mail,
 	}
 }
 

@@ -118,7 +118,7 @@ func (ur *UserRepository) LoginUser(ctx context.Context, user *entity.User) erro
 	if err != nil {
 		return fmt.Errorf("GetUserByID Error : %w", err)
 	}
-	if dbUser.Name == "" {
+	if dbUser.Id == 0 {
 		return fmt.Errorf("mail not found")
 	}
 

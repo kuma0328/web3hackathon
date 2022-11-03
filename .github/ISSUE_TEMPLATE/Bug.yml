@@ -1,0 +1,28 @@
+name: Bug Report
+description: バグの報告
+title: '[Bug]: '
+labels: ['bug']
+assignees:
+  - octocat
+body:
+  - type: markdown
+    attributes:
+      value: 'bug report'
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 何が起きた？
+      description: バグの内容を説明しましょう
+      placeholder: バグ内容
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: 事前にしたこと
+      description: バグを解決するために自分でしたことを書きましょう
+  - type: textarea
+    id: to-do
+    attributes:
+      label: その他
+      description: その他言いたいこと

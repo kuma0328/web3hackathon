@@ -7,7 +7,7 @@ import (
 )
 
 // Healthはサーバーのヘルスチェックをするハンドラーです
-func (r Router) Health() {
+func (r Router) InitHealthRouter() {
 	r.Engine.GET("/health", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{"health": "good"})
 	})

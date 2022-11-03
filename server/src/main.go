@@ -23,9 +23,13 @@ func main() {
 	// Routerの初期化
 	r := router.NewRouter()
 
-	r.Health()
+	// TODO package router配下で行うべきかも
+	r.InitHealthRouter()
 	r.InitCommunityRouter(conn)
 	r.InitUserRouter(conn)
+	r.InitRecipeRouter(conn)
+	r.InitRecipeStepRouter(conn)
+	r.InitSpiceRouter(conn)
 
 	// Routerの起動
 	r.Serve()

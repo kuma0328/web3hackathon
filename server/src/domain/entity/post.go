@@ -7,5 +7,8 @@ type Post struct {
 	Content     string
 	Img         []byte
 	Like        int
+	UserId      int
 	User        User
 }
+
+type Posts []*Post

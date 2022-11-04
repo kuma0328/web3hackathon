@@ -20,6 +20,20 @@ func NewCommunityRepository(conn *database.Conn) repository.ICommunityRepository
 	}
 }
 
+func (repo *CommunityRepository) GetCommunityAll() (entity.Communities, error) {
+	var dtos communityDtos
+
+	query := `
+	SELECT *
+	FROM communities
+	`
+	err := repo.conn.DB.Select(&dtos, query)
+	if err != nil {
+		return nil, fmt.Errorf("CommunityRepository.GetCommunityAll Get Error : %w", err)
+	}
+	return communityDtosToEntity(dtos), nil
+}
+
 func (repo *CommunityRepository) GetCommunityById(id int) (*entity.Community, error) {
 	var dto communityDto
 

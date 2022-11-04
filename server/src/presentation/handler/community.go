@@ -20,6 +20,29 @@ func NewCommunityHandler(uc usecase.ICommunityUsecase) *CommunityHandler {
 	}
 }
 
+// GetCommunityAllはcommunityをすべて取得するハンドラーです
+// GET /community/all
+func (h *CommunityHandler) GetCommunityAll(ctx *gin.Context) {
+	communities, err := h.uc.GetCommunityAll()
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error":err.Error()},
+		)
+		return
+	}
+
+	var res communitiesJson
+	for _, v := range communities {
+		communityJson := communityEntityToJson(v)
+		res = append(res, &communityJson)
+	}
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data" : res},
+	)
+}
+
 // GetCommunityByIdはIdを指定してcommuntyを取得するハンドラーです
 // GET /community/:id
 func (h *CommunityHandler) GetCommunityById(ctx *gin.Context) {
@@ -148,6 +171,8 @@ type communityJson struct {
 	Recipe  recipesJson
 	User    usersJson
 }
+
+type communitiesJson []*communityJson
 
 func communityEntityToJson(c *entity.Community) communityJson {
 	return communityJson{

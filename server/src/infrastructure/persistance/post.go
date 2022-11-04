@@ -42,11 +42,9 @@ func (repo *PostRepository) UpdatePostOfId(ctx context.Context, post *entity.Pos
 
 	query := `
 	UPDATE posts
-	SET community_id    = :community_id,
-		img				= :img,
-		content 		= :content
-		user_id    		= :user_id
-	WHERE id 			= :id
+	SET img		= :img,
+		content = :content
+	WHERE id 	= :id
 	`
 	_, err := repo.conn.DB.NamedExecContext(ctx, query, &dto)
 	if err != nil {

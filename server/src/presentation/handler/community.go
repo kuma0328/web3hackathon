@@ -32,14 +32,14 @@ func (h *CommunityHandler) GetCommunityAll(ctx *gin.Context) {
 		return
 	}
 
-	var res communitiesJson
+	var communitiesJson []*communityJson
 	for _, v := range communities {
 		communityJson := communityEntityToJson(v)
-		res = append(res, &communityJson)
+		communitiesJson = append(communitiesJson, &communityJson)
 	}
 	ctx.JSON(
 		http.StatusOK,
-		gin.H{"data" : res},
+		gin.H{"data" : communitiesJson},
 	)
 }
 
@@ -171,8 +171,6 @@ type communityJson struct {
 	Recipe  recipesJson
 	User    usersJson
 }
-
-type communitiesJson []*communityJson
 
 func communityEntityToJson(c *entity.Community) communityJson {
 	return communityJson{

@@ -1,13 +1,18 @@
 import Head from 'next/head';
 import { Page } from '../components/Wrapper/Page';
 import { useGetHealth } from '../hooks/Health/useGetHealth';
-import { Pagination, Navigation, Autoplay, EffectCube } from 'swiper';
+import { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/effect-cube';
 import 'swiper/css';
 import { LinkTo } from '../components/BaseParts/LinkTo';
+import { SwipeImg } from '../components/Home/SwipeImg';
+import { TypoGraphy } from '../components/BaseParts/TypoGraphy';
+import { getWindowSize } from '../hooks/useGetwidth';
 export default function Home() {
-  const { data, error, isLoading } = useGetHealth();
+  // const { data, error, isLoading } = useGetHealth();
+  console.log(getWindowSize());
+
   return (
     <div>
       <Head>
@@ -17,47 +22,32 @@ export default function Home() {
       </Head>
       <Page wide={true}>
         <main className=" bg-base-bg-color">
-          <h1 className="text-center text-3xl font-extralight">FooDAO</h1>
-
-          <div className="my-5 rounded-full bg-white p-20">
+          <h1 className="text-center text-3xl font-medium">FooDAO</h1>
+          <TypoGraphy className="my-3 text-center font-thin">
+            あなたと郷土料理をつなげるweb3コミュニティ
+          </TypoGraphy>
+          <div className="w-screen px-5 py-10 md:px-40">
             <Swiper
+              slidesPerView={getWindowSize().width <= 960 ? 3 : 6}
               spaceBetween={30}
-              centeredSlides={true}
               autoplay={{
                 delay: 2500,
                 disableOnInteraction: false,
               }}
-              effect={'cube'}
-              grabCursor={true}
-              cubeEffect={{
-                shadow: true,
-                slideShadows: true,
-                shadowOffset: 30,
-                shadowScale: 5,
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              navigation={true}
-              modules={[EffectCube, Autoplay]}
-              className="h-52 w-52 rounded-md shadow-2xl"
+              loop={true}
+              modules={[Autoplay]}
             >
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-              </SwiperSlide>
+              {[1, 2, 3, 4, 5, 6, 7].map((i) => {
+                return (
+                  <SwiperSlide key={i} className="my-auto">
+                    <SwipeImg image={i} />
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
           </div>
 
-          <LinkTo link="/community" className="text-center">
+          <LinkTo link="/community" className="m-auto w-40 text-center">
             始める
           </LinkTo>
         </main>

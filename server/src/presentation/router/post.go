@@ -15,6 +15,6 @@ func (r Router) InitPostRouter(conn *database.Conn) {
 	g := r.Engine.Group("/post")
 	g.GET("/:id", h.GetPostById)
 	g.PUT("/update", h.UpdatePostOfId)
-	g.DELETE("/id", h.DeletePostOfId)
+	g.DELETE("/:id", h.DeletePostOfId)
 	g.POST("/create", h.CreateNewPost)
 }

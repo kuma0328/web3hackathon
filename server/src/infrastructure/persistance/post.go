@@ -3,6 +3,7 @@ package persistance
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/kuma0328/web3hackathon/domain/entity"
 	"github.com/kuma0328/web3hackathon/domain/repository"
@@ -65,14 +66,18 @@ func (repo *PostRepository) DeletePostOfId(ctx context.Context, id int) error {
 	return nil
 }
 func (repo *PostRepository) CreateNewPost(ctx context.Context, post *entity.Post) (*entity.Post, error) {
+	log.Println("1")
 	dto := postEntityToDto(post)
+	log.Println("2")
 
 	query := `
 	INSERT INTO posts (community_id, content, img, user_id)
 	VALUES (:community_id,:content,:img,:user_id)
 	`
+	log.Println("3")
 
 	res, err := repo.conn.DB.NamedExecContext(ctx, query, &dto)
+	log.Println("4")
 	if err != nil {
 		return nil, fmt.Errorf("PostRepository.CreateNewPost NamedExec Error : %w", err)
 	}

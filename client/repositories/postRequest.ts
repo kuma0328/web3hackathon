@@ -1,14 +1,19 @@
 import axios from 'axios';
-
-export const getRequest = async (url: string) => {
+type TProps<T> = {
+  url: string;
+  formData: T;
+};
+export const postRequest = async <T, U = {}>({
+  url,
+  formData,
+}: TProps<T>): Promise<U> => {
   const data = await axios
-    .get(`http://localhost:8080/${url}`)
+    .post(`http://localhost:8080/${url}`, formData)
     .then((res) => {
       return res.data;
     })
     .catch((error) => {
       console.log(error);
-      throw new Error(error);
     });
   console.log(data);
   return data;

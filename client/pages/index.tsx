@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { useGetHealth } from '../hooks/Health/useGetHealth';
+import { useGetUser } from '../hooks/User/useGetUser';
 
 export default function Home() {
-  const { data, error, isLoading } = useGetHealth();
   return (
     <div>
       <Head>

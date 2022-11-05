@@ -16,7 +16,7 @@ type PostRepository struct {
 	conn *database.Conn
 }
 
-func NewPostRepository(conn *database.Conn) repository.IPostRepository {
+func NewPostRepository(conn *database.Conn) *PostRepository {
 	return &PostRepository{
 		conn: conn,
 	}
@@ -84,6 +84,7 @@ func (repo *PostRepository) CreateNewPost(ctx context.Context, post *entity.Post
 
 	id, err := res.LastInsertId()
 	dto.Id = (int)(id)
+	log.Println("5")
 	if err != nil {
 		return nil, fmt.Errorf("PostRepository.CreateNewPost NamedExec Error : %w", err)
 	}

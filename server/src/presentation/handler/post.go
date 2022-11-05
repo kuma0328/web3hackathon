@@ -22,7 +22,35 @@ func NewPostHandler(uc usecase.IPostUsecase) *PostHandler {
 	}
 }
 
-func (h *PostHandler) GetPostById(ctx *gin.Context) {
+func (h *PostHandler) GetDataByPostById(ctx *gin.Context) {
+	idString := ctx.Param("id")
+	id, err := strconv.Atoi(idString)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	post, err := h.uc.GetPostById(ctx, id)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+
+	postJson := postEntityToJson(post)
+	ctx.JSON(
+		http.StatusOK,
+		gin.H{"data": postJson},
+	)
+
+}
+
+func (h *PostHandler) GetImgByPostById(ctx *gin.Context) {
 	idString := ctx.Param("id")
 	id, err := strconv.Atoi(idString)
 	if err != nil {
@@ -43,13 +71,8 @@ func (h *PostHandler) GetPostById(ctx *gin.Context) {
 	}
 	ctx.Data(http.StatusOK, "image/jpeg", post.Img)
 
-	postJson := postEntityToJson(post)
-	ctx.JSON(
-		http.StatusOK,
-		gin.H{"data": postJson},
-	)
-
 }
+
 func (h *PostHandler) UpdatePostOfId(ctx *gin.Context) {
 	img, _, err := ctx.Request.FormFile("img")
 	if err != nil {
@@ -67,7 +90,7 @@ func (h *PostHandler) UpdatePostOfId(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(
 			http.StatusBadRequest,
-			gin.H{"error": err.Error()},
+			gin.H{"community_id error": err.Error()},
 		)
 		return
 	}
@@ -77,7 +100,7 @@ func (h *PostHandler) UpdatePostOfId(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(
 			http.StatusBadRequest,
-			gin.H{"error": err.Error()},
+			gin.H{"user_id error": err.Error()},
 		)
 		return
 	}
@@ -99,14 +122,16 @@ func (h *PostHandler) UpdatePostOfId(ctx *gin.Context) {
 	post.UserId = newUserId
 	post.Img = source
 
-	post, err = h.uc.UpdatePostOfId(ctx, post)
-	ctx.Data(http.StatusOK, "image/jpeg", post.Img)
+	newpost, err := h.uc.UpdatePostOfId(ctx, post)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
 
-	postJson := postEntityToJson(post)
-	ctx.JSON(
-		http.StatusOK,
-		gin.H{"data": postJson},
-	)
+	ctx.Data(http.StatusOK, "image/jpeg", newpost.Img)
 
 }
 func (h *PostHandler) DeletePostOfId(ctx *gin.Context) {
@@ -172,8 +197,16 @@ func (h *PostHandler) CreateNewPost(ctx *gin.Context) {
 	post.UserId = newUserId
 	post.Img = source
 
+	log.Println("db ikeike")
 	newpost, err := h.uc.CreateNewPost(ctx, post)
-	ctx.Data(http.StatusOK, "image/jpeg", post.Img)
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{"error": err.Error()},
+		)
+		return
+	}
+	ctx.Data(http.StatusOK, "image/jpeg", newpost.Img)
 	log.Println(newpost)
 }
 

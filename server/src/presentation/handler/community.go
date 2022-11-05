@@ -32,11 +32,7 @@ func (h *CommunityHandler) GetCommunityAll(ctx *gin.Context) {
 		return
 	}
 
-	var communitiesJson []*communityJson
-	for _, v := range communities {
-		communityJson := communityEntityToJson(v)
-		communitiesJson = append(communitiesJson, &communityJson)
-	}
+	communitiesJson := communitiesEntityToJson(communities)
 	ctx.JSON(
 		http.StatusOK,
 		gin.H{"data" : communitiesJson},
@@ -170,6 +166,15 @@ type communityJson struct {
 	Content string `json:"content"`
 	Recipe  recipesJson
 	User    usersJson
+}
+
+func communitiesEntityToJson(communities entity.Communities) []*communityJson {
+	var communitiesJson []*communityJson
+	for _, v := range communities {
+		communityJson := communityEntityToJson(v)
+		communitiesJson = append(communitiesJson, &communityJson)
+	}
+	return communitiesJson
 }
 
 func communityEntityToJson(c *entity.Community) communityJson {

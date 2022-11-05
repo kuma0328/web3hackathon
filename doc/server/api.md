@@ -15,6 +15,11 @@
 - POST   /community/:community_id/recipe
 - POST   /community/:community_id/recipe/step
 - POST   /community/:community_id/recipe/spice
+- POST   /post/create
+- PUT    /post/update
+- GET    /post/data/:id
+- GET    /post/img/:id
+- DELETE /post/:id
 
 ## GET    /health
 ヘルスチェック
@@ -171,6 +176,76 @@ response
 _cookie hogehogehogehogehogehogeho
 ```
 
+## POST /user/login
+ログインをする
+
+request body/json
+```json
+{
+    "name":"hoge",
+    "mail":"hoge@mail.com",
+    "password":"hoge"
+}
+```
+
+response
+```json
+{
+    "login": "ok"
+}
+```
+
+```
+_cookie hogehogehogehogehogehogeho
+```
+
+## GET /user/logout
+ログアウトをする
+
+response
+```json
+{
+    "logout": "ok"
+}
+```
+
+## PUT /user/update
+ユーザー情報を更新する
+
+request body/json
+```json
+{
+    "id": 1,
+    "name":"hoge",
+    "mail":"hoge@mail.com",
+    "password":"hoge"
+}
+```
+
+response
+```json
+{
+    "data": {
+        "id": 1,
+        "name": "hoge",
+        "mail": "hoge@mail.com",
+        "password": ""
+    }
+}
+```
+
+
+## DELETE /user/:id
+
+指定したidのユーザーを削除する
+
+response
+
+```json
+{
+    "delete": "ok"
+}
+```
 <br>
 
 ## GET /community/:community_id/recipe
@@ -303,3 +378,81 @@ response
 }
 ```
 
+<br>
+
+
+## POST /post/create
+投稿を登録をする
+
+request body/json
+```
+{
+    "content":"hoge",
+    "user_id":1,
+    "community_id":1,
+    "img":hogehoge.jpg,
+}
+```
+
+response
+```json
+画像
+```
+
+## PUT /post/update
+投稿の情報を更新する
+
+request body/json
+```
+{
+    "id":1,
+    "content":"hoge",
+    "user_id":1,
+    "community_id":1,
+    "img":hogehoge.jpg,
+}
+```
+
+response
+```json
+画像
+```
+
+## GET /post/img/:id
+idから投稿の画像を取得する
+
+
+response
+```json
+画像
+```
+
+## GET /post/data/:id
+idから投稿のテキストなどのデータを取得する
+
+
+response
+```json
+{
+    "data": {
+        "id": 1,
+        "community_id": 1,
+        "img": null,
+        "content": "test",
+        "user_id": 2,
+        "User": null
+    }
+}
+```
+
+
+## DELETE /post/:id
+投稿を削除する
+
+
+response
+```json
+{
+   "ok": "success delete community ( id : :id )"
+}
+```

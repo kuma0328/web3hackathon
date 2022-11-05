@@ -154,7 +154,7 @@ func (h *PostHandler) DeletePostOfId(ctx *gin.Context) {
 	}
 	ctx.JSON(
 		http.StatusOK,
-		gin.H{"ok": fmt.Sprintf("success delete community ( id : %d )", id)},
+		gin.H{"ok": fmt.Sprintf("success delete posts ( id : %d )", id)},
 	)
 
 }

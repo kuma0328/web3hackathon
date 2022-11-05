@@ -30,6 +30,7 @@ func main() {
 	r.InitRecipeRouter(conn)
 	r.InitRecipeStepRouter(conn)
 	r.InitSpiceRouter(conn)
+	r.InitPostRouter(conn)
 
 	// Routerの起動
 	r.Serve()

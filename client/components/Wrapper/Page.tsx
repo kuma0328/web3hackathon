@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Header } from '../ Header/ Header';
 
 type TProps = {
   children: ReactNode;
@@ -14,6 +15,7 @@ export const Page = ({ className, children, wide }: TProps) => {
           : `${className} bg-bc`
       }
     >
+      <Header />
       {children}
     </div>
   );

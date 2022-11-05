@@ -9,7 +9,7 @@ export const SwipeImg = ({ image }: TProps) => {
         src={`/images/${image}.jpg`}
         width={900}
         height={900}
-        alt={''}
+        alt="cuisine"
         className="rounded-full drop-shadow-2xl"
       />
     </div>

@@ -8,10 +8,10 @@ type TResponse = {
   rrecipe: string | null;
   user: string | null;
 };
-export const useGetCommunityAll = () => {
-  const { data, error, isLoading } = useQuery<{ data: TResponse[] }, Error>(
+export const useGetCommunityById = (id: string) => {
+  const { data, error, isLoading } = useQuery<{ data: TResponse }, Error>(
     'communities',
-    () => getRequest(`community/all`)
+    () => getRequest(`community/${id}`)
   );
   return { data, error, isLoading };
 };

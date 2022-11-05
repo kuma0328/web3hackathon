@@ -3,9 +3,24 @@ import { Board } from '../../../components/BaseParts/Board';
 import { Chats } from '../../../components/Chats/Chats';
 import { Community } from '../../../components/Community/Community';
 import { Page } from '../../../components/Wrapper/Page';
+import { useGetCommunityById } from '../../../hooks/Community/useGetCommunityById';
 const communityDetail = () => {
   const router = useRouter();
   const { communityId } = router.query;
+  if (!communityId) {
+    return <div>コミュニティIdの取得中</div>;
+  }
+  // hooksのルールに反しているけど今のところ解決方法が思いつかない
+  const { data, error, isLoading } = useGetCommunityById(
+    (communityId as string) ?? ''
+  );
+
+  if (isLoading) {
+    return <div>ローディング中です</div>;
+  }
+  if (error) {
+    return <div>エラーが起こりました</div>;
+  }
   return (
     <Page
       wide={false}
@@ -14,9 +29,10 @@ const communityDetail = () => {
       <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
         <Board>
           <Community
-            title="焼肉同好会"
-            description="焼肉同好会では各地のさまざまな焼き肉を食べながら交流を深めて行きます"
-            recipeLink="a"
+            title={data?.data.name ?? ''}
+            description={data?.data.content ?? ''}
+            image={data?.data.image_url ?? ''}
+            recipeLink=""
             onClickJoin={() => 1}
           />
         </Board>

@@ -29,7 +29,7 @@ func (repo *CommunityRepository) GetCommunityAll() (entity.Communities, error) {
 	`
 	err := repo.conn.DB.Select(&dtos, query)
 	if err != nil {
-		return nil, fmt.Errorf("CommunityRepository.GetCommunityAll Get Error : %w", err)
+		return nil, fmt.Errorf("CommunityRepository.GetCommunityAll Select Error : %w", err)
 	}
 	return communityDtosToEntity(dtos), nil
 }

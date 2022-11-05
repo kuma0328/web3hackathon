@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"log"
 
 	"github.com/kuma0328/web3hackathon/domain/entity"
 	"github.com/kuma0328/web3hackathon/domain/repository"
@@ -62,7 +61,6 @@ func (pu *PostUsecase) DeletePostOfId(ctx context.Context, id int) error {
 }
 
 func (pu *PostUsecase) CreateNewPost(ctx context.Context, post *entity.Post) (*entity.Post, error) {
-	log.Println("usecase")
 	if post.Content == "" {
 		return nil, usecase_error.ContentEmptyError
 	}

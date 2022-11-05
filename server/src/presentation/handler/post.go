@@ -3,7 +3,6 @@ package handler
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -197,7 +196,6 @@ func (h *PostHandler) CreateNewPost(ctx *gin.Context) {
 	post.UserId = newUserId
 	post.Img = source
 
-	log.Println("db ikeike")
 	newpost, err := h.uc.CreateNewPost(ctx, post)
 	if err != nil {
 		ctx.JSON(
@@ -207,7 +205,6 @@ func (h *PostHandler) CreateNewPost(ctx *gin.Context) {
 		return
 	}
 	ctx.Data(http.StatusOK, "image/jpeg", newpost.Img)
-	log.Println(newpost)
 }
 
 type postJson struct {

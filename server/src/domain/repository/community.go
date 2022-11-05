@@ -7,4 +7,5 @@ type ICommunityRepository interface {
 	UpdateCommunityOfId(community *entity.Community)(*entity.Community,error)
 	DeleteCommunityOfId(id int)error
 	CreateNewCommunity(community *entity.Community)(*entity.Community,error)
+	GetCommunityAll()(entity.Communities, error)
 }

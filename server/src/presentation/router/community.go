@@ -17,4 +17,5 @@ func (r Router) InitCommunityRouter(conn *database.Conn) {
 	g.PUT("/:community_id",h.UpdateCommunityOfId)
 	g.DELETE("/:community_id",h.DeleteCommunityOfId)
 	g.POST("/",h.CreateNewCommunity)
+	g.GET("/all",h.GetCommunityAll)
 }

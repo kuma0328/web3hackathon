@@ -18,12 +18,17 @@ type ICommunityUsecase interface {
 	UpdateCommunityOfId(id int, community *entity.Community)(*entity.Community,error)
 	DeleteCommunityOfId(id int)error
 	CreateNewCommunity(community *entity.Community)(*entity.Community,error)
+	GetCommunityAll()(entity.Communities, error)
 }
 
 func NewCommunityUsecase(repo repository.ICommunityRepository) ICommunityUsecase {
 	return &CommunityUsecase{
 		repo: repo,
 	}
+}
+
+func (uc *CommunityUsecase) GetCommunityAll() (entity.Communities, error) {
+	return uc.repo.GetCommunityAll()
 }
 
 func (uc *CommunityUsecase) GetCommunityById(id int) (*entity.Community, error) {

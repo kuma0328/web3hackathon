@@ -4,6 +4,8 @@ import { Input } from '../BaseParts/Input';
 import { TypoGraphy } from '../BaseParts/TypoGraphy';
 import { useLogin } from '../../hooks/User/useLogin';
 import { useSignUp } from '../../hooks/User/useSignUp';
+import { Meta } from './Meta';
+import { useAddress } from '@thirdweb-dev/react';
 type TProps = {
   title: string;
 };
@@ -19,9 +21,11 @@ export const Form = ({ title }: TProps) => {
     passwordConfirmation,
     setPasswordConfirmation,
   } = UserForm();
+  const address = useAddress();
   return (
     <div className="m-10">
       <TypoGraphy className="text-center text-xl">{title}</TypoGraphy>
+      <Meta address={address ?? ''} />
       {newUser && (
         <Input
           id="name"

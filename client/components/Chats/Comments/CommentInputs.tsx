@@ -1,12 +1,29 @@
 import { useChatContentStore } from '../../../stores/ChatContentStore';
 import { Button } from '../../BaseParts/Button';
-
+import { AddressZero } from '@ethersproject/constants';
+import sdk from '../../../web3/initialize-sdk';
 type TProps = {
   onClick: () => void;
 };
 export const CommentInputs = ({ onClick }: TProps) => {
   const { chatContent, chatImage, setChatContent, setChatImage } =
     useChatContentStore();
+
+  const tokenDeploy = (async () => {
+    try {
+      const tokenAddress = await sdk.deployer.deployToken({
+        name: 'FOOToken',
+        symbol: 'FOO',
+        primary_sale_recipient: AddressZero,
+      });
+      console.log(
+        '✅ Successfully deployed token module, address:',
+        tokenAddress
+      );
+    } catch (error) {
+      console.error('failed to deploy token module', error);
+    }
+  })();
   return (
     <div className="text-right">
       <div className=" m-3 rounded-md bg-slate-200 p-10">
@@ -24,7 +41,7 @@ export const CommentInputs = ({ onClick }: TProps) => {
           value={chatContent}
           onChange={(e) => setChatContent(e.target.value)}
         />
-        <Button onClick={onClick} className="my-2">
+        <Button onClick={() => tokenDeploy} className="my-2">
           コメントする
         </Button>
       </div>

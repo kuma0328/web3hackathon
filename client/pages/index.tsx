@@ -43,10 +43,11 @@ export default function Home() {
               })}
             </Swiper>
           </div>
-
-          <LinkTo link="/community" className="m-auto w-40 text-center">
-            始める
-          </LinkTo>
+          <div className="text-center">
+            <LinkTo link="/community" className="m-auto w-40 text-center">
+              始める
+            </LinkTo>
+          </div>
         </main>
       </Page>
     </div>

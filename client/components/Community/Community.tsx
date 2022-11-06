@@ -21,12 +21,17 @@ export const Community = ({
   className,
   image,
 }: TProps) => {
-  console.log(recipeLink);
   // Todo リンクが動かない
   return (
     <div className="p-5">
       <div className={`${className}`}>
-        <Image src={image} width={500} height={500} alt="イメージ画像" />
+        <Image
+          src={image}
+          width={500}
+          height={500}
+          alt="イメージ画像"
+          className="m-auto rounded-md"
+        />
         <p className="text-center text-lg font-semibold">{title}</p>
         <Descriptions>
           <p>{description}</p>

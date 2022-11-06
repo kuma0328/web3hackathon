@@ -6,17 +6,25 @@ import { Descriptions } from '../../components/BaseParts/Descriptions';
 import { BelongingCommunity } from '../../components/Community/BelongingCommunity';
 import { Button } from '../../components/BaseParts/Button';
 import { useLogOut } from '../../hooks/User/useLogOut';
+import Image from 'next/image';
 
 const index = () => {
   const router = useRouter();
   const { name } = router.query;
+
   return (
     <div>
       <Page wide={true}>
         <Board className="w-full md:w-1/2">
           <div className="p-5 text-center md:p-20">
-            <div className="m-auto my-3 h-32 w-32 rounded-full bg-orange-400"></div>
-            <TypoGraphy className="text-2xl">{name}</TypoGraphy>
+            <Image
+              src="/images/mock/user.png"
+              width={300}
+              height={300}
+              alt={''}
+              className="m-auto mb-5 rounded-full"
+            />
+            <TypoGraphy className="text-2xl">done</TypoGraphy>
             <Descriptions>
               <p>Eth:0.99</p>
               <p className="py-1">いいね数:10</p>

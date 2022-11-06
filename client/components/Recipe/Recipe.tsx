@@ -1,37 +1,20 @@
 import { TypoGraphy } from '../BaseParts/TypoGraphy';
 
 export const Recipe = () => {
-  const contents = [
-    '醤油',
-    '鶏肉',
-    '牛肉',
-    'オリーブオイル',
-    'ニンニクを炒めたのもの',
-    '何か',
-    '何か',
-    '何か',
-    '何か',
-    '何か',
-    '何か',
-    '何か',
-  ];
+  const contents = ['アジの切り身/サーモン', '酢', '米'];
   const processes = [
-    'ニンニクを5分炒める',
-    '肉を弱火で炒める',
-    'オリーブオイルをかけて蒸す',
-    '肉とニンニクを混ぜ合わせる',
-    '醤油で味付けする',
-    '盛り付けする',
-    '盛り付けする',
-    '盛り付けする',
-    '盛り付けする',
+    '酢を米と混ぜ合わせる',
+    '米をたく',
+    '米を整形する',
+    '刺身を米の大きさに合わせて切り分ける',
+    '米の上に刺身を置く',
   ];
   return (
     <div className="lg:p-5">
-      <div>
-        <TypoGraphy className="my-3 text-lg">材料</TypoGraphy>
-      </div>
       <div className="m-3 grid grid-cols-1 lg:m-10">
+        <div>
+          <TypoGraphy className="my-3 text-lg">材料</TypoGraphy>
+        </div>
         <div className="my-5">
           <div className="grid grid-cols-3 place-items-center justify-items-center gap-2 overflow-y-auto">
             {contents.map((content) => {

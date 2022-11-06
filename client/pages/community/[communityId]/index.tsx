@@ -21,6 +21,11 @@ const communityDetail = () => {
   if (error) {
     return <div>エラーが起こりました</div>;
   }
+  const mock = {
+    name: '寿司コミュ',
+    content: '日本の寿司のコミュニティを盛り上げます',
+    image_url: '/images/mock/1.jpg',
+  };
   return (
     <Page
       wide={false}
@@ -29,9 +34,9 @@ const communityDetail = () => {
       <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
         <Board>
           <Community
-            title={data?.data.name ?? ''}
-            description={data?.data.content ?? ''}
-            image={data?.data.image_url ?? ''}
+            title={mock.name}
+            description={mock.content}
+            image={mock.image_url}
             recipeLink=""
             onClickJoin={() => 1}
           />

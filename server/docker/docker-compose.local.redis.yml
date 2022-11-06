@@ -3,7 +3,7 @@ version: "3"
 services:
   redis:
     build: 
-      context: ./redis
+      context: ../redis
       dockerfile: Dockerfile
     ports:
       - 6379:6379

@@ -1,40 +1,34 @@
+import { UserForm } from '../../stores/UserForm';
 import { Button } from '../BaseParts/Button';
 import { Input } from '../BaseParts/Input';
 import { TypoGraphy } from '../BaseParts/TypoGraphy';
+import { useLogin } from '../../hooks/User/useLogin';
+import { useSignUp } from '../../hooks/User/useSignUp';
 type TProps = {
-  title?: string;
-  mail: string;
-  password: string;
-  name?: string;
-  passwordConfirmation?: string;
-  onChangeMail: () => void;
-  onChangePassword: () => void;
-  onChangeName?: () => void;
-  onChangePasswordConfirmation?: () => void;
-  onSubmit: () => void;
+  title: string;
 };
-export const Form = ({
-  title,
-  mail,
-  password,
-  passwordConfirmation,
-  name,
-  onChangePassword,
-  onChangeMail,
-  onChangeName,
-  onChangePasswordConfirmation,
-  onSubmit,
-}: TProps) => {
+export const Form = ({ title }: TProps) => {
+  const newUser = title === 'ユーザー登録';
+  const {
+    name,
+    mail,
+    password,
+    setMail,
+    setPassword,
+    setName,
+    passwordConfirmation,
+    setPasswordConfirmation,
+  } = UserForm();
   return (
     <div className="m-10">
       <TypoGraphy className="text-center text-xl">{title}</TypoGraphy>
-      {name !== undefined && (
+      {newUser && (
         <Input
           id="name"
           name="名前"
           type="text"
           value={name}
-          onChange={onChangeName}
+          onChange={setName}
         />
       )}
       <Input
@@ -42,27 +36,35 @@ export const Form = ({
         name="メールアドレス"
         type="email"
         value={mail}
-        onChange={onChangeMail}
+        onChange={setMail}
       />
       <Input
         id="password"
         name="パスワード"
         type="password"
         value={password}
-        onChange={onChangePassword}
+        onChange={setPassword}
       />
-      {passwordConfirmation !== undefined && (
+      {newUser && (
         <Input
           id="password-confirmation"
           name="パスワード確認"
           type="password"
           value={passwordConfirmation}
-          onChange={onChangePasswordConfirmation}
+          onChange={setPasswordConfirmation}
         />
       )}
 
       <div className="my-5 flex justify-center">
-        <Button onClick={onSubmit}>{title}する</Button>
+        <Button
+          onClick={
+            newUser
+              ? () => useSignUp({ name, mail, password })
+              : () => useLogin({ mail, password })
+          }
+        >
+          {title}する
+        </Button>
       </div>
     </div>
   );

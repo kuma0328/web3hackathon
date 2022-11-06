@@ -1,6 +1,7 @@
 import { Button } from '../BaseParts/Button';
 import { Descriptions } from '../BaseParts/Descriptions';
 import { LinkTo } from '../BaseParts/LinkTo';
+import Image from 'next/image';
 type TProps = {
   title: string;
   link?: string;
@@ -8,6 +9,7 @@ type TProps = {
   join?: boolean;
   description: string;
   onClickJoin?: () => void;
+  image: string;
   className?: string;
 };
 export const Community = ({
@@ -17,11 +19,14 @@ export const Community = ({
   description,
   onClickJoin,
   className,
+  image,
 }: TProps) => {
+  console.log(recipeLink);
+  // Todo リンクが動かない
   return (
     <div className="p-5">
       <div className={`${className}`}>
-        <div className="m-auto my-3 h-32 w-full rounded-md bg-orange-400"></div>
+        <Image src={image} width={500} height={500} alt="イメージ画像" />
         <p className="text-center text-lg font-semibold">{title}</p>
         <Descriptions>
           <p>{description}</p>

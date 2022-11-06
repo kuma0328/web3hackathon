@@ -1,16 +1,16 @@
 import create from 'zustand';
 
 type State = {
-  image: string;
+  image: FileList | null;
   title: string;
   description: string;
-  setImage: (state: string) => void;
+  setImage: (state: FileList) => void;
   setTitle: (state: string) => void;
   setDescription: (state: string) => void;
 };
 
 export const useCommunityStore = create<State>((set) => ({
-  image: '',
+  image: null,
   title: '',
   description: '',
   setImage: (image) =>

@@ -4,6 +4,9 @@ import { Page } from '../../components/Wrapper/Page';
 import { useRouter } from 'next/router';
 import { Descriptions } from '../../components/BaseParts/Descriptions';
 import { BelongingCommunity } from '../../components/Community/BelongingCommunity';
+import { Button } from '../../components/BaseParts/Button';
+import { useLogOut } from '../../hooks/User/useLogOut';
+
 const index = () => {
   const router = useRouter();
   const { name } = router.query;
@@ -21,6 +24,9 @@ const index = () => {
             </Descriptions>
             <TypoGraphy className="text-left">所属コミュニティ</TypoGraphy>
             <BelongingCommunity className="rounded-md" />
+            <div className="my-5">
+              <Button onClick={useLogOut}>ログアウトする</Button>
+            </div>
           </div>
         </Board>
       </Page>

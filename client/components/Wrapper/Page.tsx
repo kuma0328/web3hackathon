@@ -1,12 +1,15 @@
 import { ReactNode } from 'react';
 import { Header } from '../ Header/ Header';
+import { useGetUser } from '../../hooks/User/useGetUser';
 
 type TProps = {
   children: ReactNode;
   className?: string;
   wide: boolean;
 };
+
 export const Page = ({ className, children, wide }: TProps) => {
+  const { data, error, isLoading } = useGetUser(1);
   return (
     <div
       className={

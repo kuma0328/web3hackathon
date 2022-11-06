@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { Page } from '../components/Wrapper/Page';
-import { useGetHealth } from '../hooks/Health/useGetHealth';
 import { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/effect-cube';
@@ -9,10 +8,8 @@ import { LinkTo } from '../components/BaseParts/LinkTo';
 import { SwipeImg } from '../components/Home/SwipeImg';
 import { TypoGraphy } from '../components/BaseParts/TypoGraphy';
 import { getWindowSize } from '../hooks/useGetwidth';
-export default function Home() {
-  // const { data, error, isLoading } = useGetHealth();
-  console.log(getWindowSize());
 
+export default function Home() {
   return (
     <div>
       <Head>

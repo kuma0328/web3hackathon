@@ -28,7 +28,7 @@ const recipe = () => {
             title={data?.data.name ?? ''}
             description={data?.data.content ?? ''}
             image={data?.data.image_url ?? ''}
-            recipeLink={`/community/${data?.data.id}/recipe`}
+            recipeLink={`/community/${communityId}/recipe`}
             onClickJoin={() => 1}
           />
           <Recipe />

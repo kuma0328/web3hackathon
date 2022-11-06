@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Header } from '../ Header/ Header';
 import { useGetUser } from '../../hooks/User/useGetUser';
 
 type TProps = {
@@ -17,6 +18,7 @@ export const Page = ({ className, children, wide }: TProps) => {
           : `${className} bg-bc`
       }
     >
+      <Header />
       {children}
     </div>
   );

@@ -3,13 +3,13 @@ import { useCommunityStore } from '../../stores/CommunityStore';
 export const CommunityInputs = () => {
   const { image, title, description, setImage, setTitle, setDescription } =
     useCommunityStore();
+  console.log(image);
   return (
     <div className="p-5">
       <div className="  my-2 w-full rounded-md border py-32  text-center">
         <input
           type="file"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
+          onChange={(e) => setImage(e.target.files as FileList)}
         />
       </div>
 

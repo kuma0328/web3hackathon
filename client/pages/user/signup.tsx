@@ -6,28 +6,7 @@ export const signup = () => {
   return (
     <Page wide={true}>
       <Board className="w-full md:w-1/2">
-        <Form
-          title="ユーザー登録"
-          mail={''}
-          password={''}
-          name={''}
-          passwordConfirmation={''}
-          onChangeName={() => {
-            console.log('aa');
-          }}
-          onChangeMail={() => {
-            console.log('aa');
-          }}
-          onChangePassword={() => {
-            console.log('aa');
-          }}
-          onChangePasswordConfirmation={() => {
-            console.log('aa');
-          }}
-          onSubmit={() => {
-            console.log('aa');
-          }}
-        />
+        <Form title="ユーザー登録" />
       </Board>
     </Page>
   );

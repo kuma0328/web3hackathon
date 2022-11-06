@@ -5,20 +5,7 @@ export const signin = () => {
   return (
     <Page wide={true}>
       <Board className="w-full md:w-1/2">
-        <Form
-          title="ログイン"
-          mail={''}
-          password={''}
-          onChangeMail={() => {
-            console.log('aa');
-          }}
-          onChangePassword={() => {
-            console.log('aa');
-          }}
-          onSubmit={() => {
-            console.log('aa');
-          }}
-        />
+        <Form title="ログイン" />
       </Board>
     </Page>
   );
